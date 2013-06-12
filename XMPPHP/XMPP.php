@@ -176,7 +176,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$out .= "<body>$body</body>";
 		if($payload) $out .= $payload;
 		$out .= "</message>";
-        $this->log->log($out, XMPPHP_Log::LEVEL_VERBOSE)	;	
+		
 		$this->send($out);
 	}
 
@@ -187,7 +187,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $show
 	 * @param string $to
 	 */
-	public function presence($status = null, $show = 'available', $to = null, $type='available', $priority=0) {
+	public function presence($status = null, $show = 'available', $to = null, $type='available', $priority=0, $password = null) {
 		if($type == 'available') $type = '';
 		$to	 = htmlspecialchars($to);
 		$status = htmlspecialchars($status);
@@ -197,7 +197,10 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		if($to) $out .= " to=\"$to\"";
 		if($type) $out .= " type='$type'";
 		if($show == 'available' and !$status) {
-			$out .= "/>";
+            if($password)
+                $out .= "><x xmlns='http://jabber.org/protocol/muc'><password>{$password}</password></x></presence>";
+            else
+                $out .= "/>";
 		} else {
 			$out .= ">";
 			if($show != 'available') $out .= "<show>$show</show>";
@@ -208,16 +211,18 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		
 		$this->send($out);
 	}
-	/**
-     * Send a ping to the server
-     *
-     */
-	public function ping() {
-		$id = $this->getId();
-	    $out = '<iq type="get" id="' . $id . '">	<ping xmlns="urn:xmpp:ping"/></iq>';
-	    $this->log->log($out, XMPPHP_Log::LEVEL_INFO)	;		
+    
+    public function joinRoom($room, $host, $nick, $password = null) {
+        $out = "<presence to='" . $room . "@" . $host . "/" . $nick . "'><priority>1</priority>";
+        if($password)
+            $out .= "<x xmlns='http://jabber.org/protocol/muc'><password>{$password}</password></x>";
+        $out .= "</presence>";
+        
+        "<presence to='{$room}@{$host}/{$nick}><priority>1</priority><x xmlns='http://jabber.org/protocol/muc'><password>monkeybrains</password></x></presence>";
+		
 		$this->send($out);
-	}
+    }
+    
 	/**
 	 * Send Auth request
 	 *
@@ -240,9 +245,9 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 			$payload['type'] = 'chat';
 		}
 		$payload['from'] = $xml->attrs['from'];
-		$payload['body'] =($xml->sub('body'))? $xml->sub('body')->data : null;
+		$payload['body'] = $xml->sub('body')->data;
 		$payload['xml'] = $xml;
-		$this->log->log("Message: {$payload['body']}", XMPPHP_Log::LEVEL_DEBUG);
+		$this->log->log("Message: {$xml->sub('body')->data}", XMPPHP_Log::LEVEL_DEBUG);
 		$this->event('message', $payload);
 	}
 
@@ -252,29 +257,14 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $xml
 	 */
 	public function presence_handler($xml) {
-
 		$payload['type'] = (isset($xml->attrs['type'])) ? $xml->attrs['type'] : 'available';
 		$payload['show'] = (isset($xml->sub('show')->data)) ? $xml->sub('show')->data : $payload['type'];
 		$payload['from'] = $xml->attrs['from'];
 		$payload['status'] = (isset($xml->sub('status')->data)) ? $xml->sub('status')->data : '';
 		$payload['priority'] = (isset($xml->sub('priority')->data)) ? intval($xml->sub('priority')->data) : 0;
 		$payload['xml'] = $xml;
-		// psmith: resolve username, for MUC presences, this is not in the 'to' attr.
-		if ($xml->hasSub('x',  'http://jabber.org/protocol/muc#user')) {
-			$x = $xml->sub('x', null,  'http://jabber.org/protocol/muc#user');
-		    if (isset($x->sub('item')->attrs['jid'])) {
-			      $jid = explode('@', $x->sub('item')->attrs['jid']);
-			      $payload['username'] = $jid[0];
-		    } else {
-		    	$payload['username'] = null;
-		    }
-		} else {
-			$jid = explode('@', $payload['from']);
-			$payload['username'] = $jid[0];
-		}
-
 		if($this->track_presence) {
-			$this->roster->setPresence($payload['from'], $payload['priority'], $payload['show'], $payload['status'], $payload['username']);
+			$this->roster->setPresence($payload['from'], $payload['priority'], $payload['show'], $payload['status']);
 		}
 		$this->log->log("Presence: {$payload['from']} [{$payload['show']}] {$payload['status']}",  XMPPHP_Log::LEVEL_DEBUG);
 		if(array_key_exists('type', $xml->attrs) and $xml->attrs['type'] == 'subscribe') {

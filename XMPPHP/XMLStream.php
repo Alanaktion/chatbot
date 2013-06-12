@@ -142,7 +142,7 @@ class XMPPHP_XMLStream {
 	/**
 	 * @var XMPPHP_Log
 	 */
-	public $log;
+	protected $log;
 	/**
 	 * @var boolean
 	 */
@@ -263,7 +263,7 @@ class XMPPHP_XMLStream {
 			$ns_tags = array($xpath);
 		}
 		foreach($ns_tags as $ns_tag) {
-			list($l, $r) = explode("}", $ns_tag);
+			list($l, $r) = split("}", $ns_tag);
 			if ($r != null) {
 				$xpart = array(substr($l, 1), $r);
 			} else {
@@ -459,14 +459,6 @@ class XMPPHP_XMLStream {
 	 * @return string
 	 */
 	public function processUntil($event, $timeout=-1) {
-        //LS mem leak hack - Lukasz A. Grabowski - www.lucas.net.pl
-        $this->until = null; //must null for garbage
-        unset($this->until); //then unset
-        $this->until = array(); //and create new
-        $this->until_payload = null; //must null for garbage
-        unset($this->until_payload); //then unset
-        $this->until_payload = array(); //and create new
-        //LS: END mem lead hack
 		$start = time();
 		if(!is_array($event)) $event = array($event);
 		$this->until[] = $event;
@@ -475,13 +467,9 @@ class XMPPHP_XMLStream {
 		reset($this->until);
 		$this->until_count[$event_key] = 0;
 		$updated = '';
-
 		while(!$this->disconnected and $this->until_count[$event_key] < 1 and (time() - $start < $timeout or $timeout == -1)) {
 			$this->__process();
-            // psmith: release the CPU for a short break.
-			usleep (20000);
 		}
-
 		if(array_key_exists($event_key, $this->until_payload)) {
 			$payload = $this->until_payload[$event_key];
 			unset($this->until_payload[$event_key]);
@@ -490,7 +478,6 @@ class XMPPHP_XMLStream {
 		} else {
 			$payload = array();
 		}
-
 		return $payload;
 	}
 

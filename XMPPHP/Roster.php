@@ -117,16 +117,14 @@ class Roster {
 	 * @param string $show
 	 * @param string $status
 	*/
-	public function setPresence($presence, $priority, $show, $status, $username) {
-		$parts = explode("/", $presence);
-		$jid = $parts[0];
-		$resource = isset($parts[1]) ? $parts[1] : '';
+	public function setPresence($presence, $priority, $show, $status) {
+		list($jid, $resource) = split("/", $presence);
 		if ($show != 'unavailable') {
 			if (!$this->isContact($jid)) {
 				$this->addContact($jid, 'not-in-roster');
 			}
 			$resource = $resource ? $resource : '';
-			$this->roster_array[$jid]['presence'][$resource] = array('priority' => $priority, 'show' => $show, 'status' => $status ,'username' => $username);
+			$this->roster_array[$jid]['presence'][$resource] = array('priority' => $priority, 'show' => $show, 'status' => $status);
 		} else { //Nuke unavailable resources to save memory
 			unset($this->roster_array[$jid]['resource'][$resource]);
 		}
@@ -139,20 +137,13 @@ class Roster {
 	 * @param string $jid
 	 */
 	public function getPresence($jid) {
-		$split = explode("/", $jid);
+		$split = split("/", $jid);
 		$jid = $split[0];
-		$jidresource = $split[1];
 		if($this->isContact($jid)) {
 			$current = array('resource' => '', 'active' => '', 'priority' => -129, 'show' => '', 'status' => ''); //Priorities can only be -128 = 127
 			foreach($this->roster_array[$jid]['presence'] as $resource => $presence) {
 				//Highest available priority or just highest priority
-				if ($presence['priority'] > $current['priority'] 
-                                    and (
-                                         ($presence['show'] == "chat" or $presence['show'] == "available") 
-                                      or ($current['show'] != "chat" or $current['show'] != "available")
-                                        )
-				     && ($jidresource == $resource)
-                                    ) {
+				if ($presence['priority'] > $current['priority'] and (($presence['show'] == "chat" or $presence['show'] == "available") or ($current['show'] != "chat" or $current['show'] != "available"))) {
 					$current = $presence;
 					$current['resource'] = $resource;
 				}
