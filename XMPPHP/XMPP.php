@@ -162,8 +162,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $subject
 	 */
 	public function message($to, $body, $type = 'chat', $subject = null, $payload = null) {
-	    if(is_null($type))
-	    {
+	    if(is_null($type)) {
 	        $type = 'chat';
 	    }
 	    
