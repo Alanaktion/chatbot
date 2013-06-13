@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // Bot Configuration
 $old_auth = true;
