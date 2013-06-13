@@ -1,22 +1,7 @@
 #!/usr/bin/php
 <?php
-
-// Bot Configuration
-$old_auth = true;
-
-$server = 'chat.shelfreliance.com';
-$port = 5222;
-$user = 'hashbot';
-$domain = $server;
-$pass = 'letmein';
-$clientid = 'xmpphp';
-
-$room = 'codemonkey';
-$room_password = 'monkeybrains';
-$room_server = 'conference.chat.shelfreliance.com';
-$nick = 'Hashbot';
-
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+require 'config.php';
+error_reporting($errors);
 
 if(!defined('STDIN')) die("Hashbot must be run from the command line.");
 
