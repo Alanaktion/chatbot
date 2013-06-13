@@ -7,8 +7,9 @@ if(!defined('STDIN')) die("Hashbot must be run from the command line.");
 
 $start_time = time();
 
-echo "Loading XMPP libraries... ";
+echo "Loading libraries... ";
 include("XMPPHP/XMPP.php");
+include("lib/Unirest.php");
 if($old_auth) {
     include("XMPPHP/XMPP_Old.php");
 }
@@ -74,6 +75,39 @@ try {
 									$img = str_pad(rand(0,45),2,0,STR_PAD_LEFT);
 									$conn->message($pl['from'],"http://facepalm.org/images/{$img}.jpg",$pl['type']);
 									break;
+								case "weather":
+									if(!empty($param_str)) {
+										$conn->message($pl['from'],"Checking the forecast for ".$param_str."...",$pl['type']);
+										$response = Unirest::get(
+											"https://george-vustrey-weather.p.mashape.com/api.php?_method=getForecasts&location=".urlencode($param_str),
+											array("X-Mashape-Authorization" => $mash_key)
+										);
+										$str = "\nToday: ▲ " . round($response->body[0]->high) . "  ▼ " . round($response->body[0]->low) . "  " . $response->body[0]->condition;
+										$str.= "\nTomorrow: ▲ " . round($response->body[1]->high) . "  ▼ " . round($response->body[1]->low) . "  " . $response->body[1]->condition;
+										$conn->message($pl['from'],$str,$pl['type']);
+									} else {
+										$conn->message($pl['from'],"Usage: #weather <location>",$pl['type']);
+									}
+									break;
+								case "cat":
+									if($params[0] == "gif")
+										$cat_xml = curl_get_contents("http://thecatapi.com/api/images/get?format=xml&type=gif");
+									else
+										$cat_xml = curl_get_contents("http://thecatapi.com/api/images/get?format=xml");
+									$cat = new SimpleXMLElement($cat_xml);
+									$conn->message($pl['from'],$cat->data->images->image->url,$pl['type']);
+									break;
+								case "yoda":
+									if(!empty($param_str)) {
+										$response = Unirest::get(
+											"https://yoda.p.mashape.com/yoda?sentence=".urlencode($param_str),
+											array("X-Mashape-Authorization" => $mash_key)
+										);
+										$conn->message($pl['from'],$response->raw_body,$pl['type']);
+									} else {
+										$conn->message($pl['from'],"Usage: #yoda <sentence>",$pl['type']);
+									}
+									break;
 								case "yt":
 								case "youtube":
 									$url = "http://gdata.youtube.com/feeds/api/videos?q=" . urlencode($param_str) . "&alt=json";
@@ -85,8 +119,24 @@ try {
 										$conn->message($pl['from'],"Nothing found!",$pl['type']);
 									}
 									break;
-								case "tell":
-									
+								case "timer":
+									if(empty($params[0])) {
+										if(!empty($timer)) {
+											$conn->message($pl['from'],"Timer running, ".(time() - $timer)." seconds",$pl['type']);
+										} else {
+											$conn->message($pl['from'],"Timer isn't running!",$pl['type']);
+										}
+									} elseif($params[0] == "start") {
+										$timer = time();
+										$conn->message($pl['from'],"Starting timer",$pl['type']);
+									} elseif($params[0] == "stop") {
+										if(!empty($timer)) {
+											$conn->message($pl['from'],"Time: ".(time() - $timer)." seconds",$pl['type']);
+											unset($timer);
+										} else {
+											$conn->message($pl['from'],"Timer isn't running!",$pl['type']);
+										}
+									}
 									break;
 								case "spam!":
 									$max = !empty($params[0]) ? intval($params[0]) : 20;
