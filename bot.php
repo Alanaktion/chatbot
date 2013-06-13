@@ -9,12 +9,19 @@ if (!defined('STDIN'))
 $start_time = time();
 
 echo "Loading libraries... ";
-include("XMPPHP/XMPP.php");
+include("lib/XMPPHP/XMPP.php");
 include("lib/Unirest.php");
 if ($old_auth) {
-	include("XMPPHP/XMPP_Old.php");
+	include("lib/XMPPHP/XMPP_Old.php");
 }
 echo "done.\n";
+
+// Build base $commands object
+$commands = array(
+	"help" => function(&$conn, $event, $params) {
+		$conn->message($event['from'], "I'm not very helpful yet. But I am object-based now!", $event['type']);
+	}
+);
 
 if ($old_auth) {
 	$conn = new XMPPHP_XMPPOld($server, $port, $user, $pass, $clientid, $domain, $printlog = True, $loglevel = XMPPHP_Log::LEVEL_INFO);
@@ -38,6 +45,8 @@ try {
 					// Ensure previous messages in the room are not processed
 					if (time() - $start_time > 3) {
 						$msg = trim(preg_replace("/\\s+/", " ", $pl['body']));
+
+						$pl['realfrom'] = $pl['from'];
 
 						// Send group messages to the room, not the sender (weird)
 						if ($pl['type'] == "groupchat")
@@ -66,14 +75,6 @@ try {
 
 								case "help":
 									$conn->message($pl['from'], "I'm not very helpful yet.", $pl['type']);
-									break;
-
-								case "say":
-									if ($param_str{0} == "#") {
-										$conn->message($pl['from'], "Nope :P", $pl['type']);
-									} else {
-										$conn->message($pl['from'], $param_str, $pl['type']);
-									}
 									break;
 
 								case "fp":
