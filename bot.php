@@ -93,6 +93,8 @@ try {
 								closedir($h);
 								$conn->message($pl['from'], "Available commands: " . implode(", ",$cmd_list), $pl['type']);
 								echo "Available commands: " . implode(", ",$cmd_list) . "\n";
+							} elseif(!$cmd) {
+								// empty command, do nothing
 							} else {
 								$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
 								echo dirname(__FILE__) . "/commands/" . $cmd . ".php\n";
