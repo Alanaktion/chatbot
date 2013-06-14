@@ -28,7 +28,6 @@ $conn->autoSubscribe();
 
 $vcard_request = array();
 
-start:
 try {
 	$conn->connect();
 
@@ -98,27 +97,6 @@ try {
 								$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
 								echo dirname(__FILE__) . "/commands/" . $cmd . ".php\n";
 							}
-
-//								case "whois":
-////									if (!empty($params[0])) {
-////										$response = json_decode(curl_get_contents("https://whoiz.herokuapp.com/lookup.json?url=" . urlencode($params[0])));
-////										$conn->message($pl['from'], $response, $pl['type']);
-////									} else {
-////										$conn->message($pl['from'], "Usage: #whois <domain>", $pl['type']);
-////									}
-//									break;
-
-//								case "restart!":
-//									$conn->message($pl['from'], "/me doesn't do anything, 'cause Alan doesn't know how to do that yet.", $pl['type']);
-//									$conn->disconnect();
-//									goto start;
-//									break;
-//
-//								case "die!":
-//									$conn->message($pl['from'], "/me dies", $pl['type']);
-//									$conn->disconnect();
-//									break;
-
 						}
 					}
 					break;
@@ -173,13 +151,16 @@ try {
 	die($e->getMessage());
 }
 
-function curl_get_contents($url) {
+function curl_get_contents($url,$user_agent = null) {
 	if (in_array('curl', get_loaded_extensions())) {
 		$curl = curl_init($url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+		if($user_agent) {
+			curl_setopt($curl, CURLOPT_HTTPHEADER, array('User-Agent: ' . $user_agent));
+		}
 		$data = curl_exec($curl);
 		curl_close($curl);
 	} else {
