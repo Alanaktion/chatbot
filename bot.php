@@ -97,7 +97,6 @@ try {
 								// empty command, do nothing
 							} else {
 								$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
-								echo dirname(__FILE__) . "/commands/" . $cmd . ".php\n";
 							}
 						}
 					}
