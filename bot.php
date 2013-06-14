@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 require 'config.php';
-error_reporting($errors);
+@error_reporting($errors);
 
 if (!defined('STDIN'))
 	die("Hashbot must be run from the command line.");
@@ -9,19 +9,18 @@ if (!defined('STDIN'))
 $start_time = time();
 
 echo "Loading libraries... ";
-include("lib/XMPPHP/XMPP.php");
-include("lib/Unirest.php");
+include(dirname(__FILE__) . "/lib/XMPPHP/XMPP.php");
+include(dirname(__FILE__) . "/lib/Unirest.php");
 if ($old_auth) {
-	include("lib/XMPPHP/XMPP_Old.php");
+	include(dirname(__FILE__) . "/lib/XMPPHP/XMPP_Old.php");
 }
 echo "done.\n";
 
 // Build base $commands object
-$commands = array(
-	"help" => function(&$conn, $event, $params) {
-		$conn->message($event['from'], "I'm not very helpful yet. But I am object-based now!", $event['type']);
-	}
-);
+$commands = array();
+$commands["help"] = function(&$conn, $event, $params) {
+	$conn->message($event['from'], "I'm not very helpful yet. But I am object-based now!", $event['type']);
+};
 
 if ($old_auth) {
 	$conn = new XMPPHP_XMPPOld($server, $port, $user, $pass, $clientid, $domain, $printlog = True, $loglevel = XMPPHP_Log::LEVEL_INFO);
@@ -55,8 +54,22 @@ try {
 						elseif ($msg{0} != "#")
 							$msg = '#' . $msg;
 
-						// Process #commands
-						if ($msg{0} == "#") {
+						$greetings = array(
+							"hi hashbot",
+							"hey hashbot",
+							"hello hashbot",
+							"hi hash",
+							"hey hash"
+						);
+						$basic_msg = trim(preg_replace("/[^a-z0-9 ]/", "", strtolower($msg)));
+
+						// Greetings
+						if (in_array($basic_msg, $greetings)) {
+
+							$conn->message($pl['from'], "Hi!", $pl['type']);
+
+						// Commands
+						} elseif ($msg{0} == "#") {
 
 							// Split message into command and parameters
 							if (count(explode(" ", $msg)) > 1) {
@@ -64,195 +77,46 @@ try {
 								$params = explode(" ", $param_str);
 							} else {
 								$cmd = $msg;
-								$param_str = "";
 								$params = array();
 							}
 
-							$cmd = strtolower(ltrim($cmd, "#"));
+							$cmd = trim(strtolower(ltrim($cmd, "#")));
 							echo $pl['from'] . ": {$msg}\n";
 
-							switch ($cmd) {
-
-								case "help":
-									$conn->message($pl['from'], "I'm not very helpful yet.", $pl['type']);
-									break;
-
-								case "fp":
-									$img = str_pad(rand(0, 45), 2, 0, STR_PAD_LEFT);
-									$conn->message($pl['from'], "http://facepalm.org/images/{$img}.jpg", $pl['type']);
-									break;
-
-								case "weather":
-									if (!empty($param_str)) {
-										$conn->message($pl['from'], "Checking the forecast for " . $param_str . "...", $pl['type']);
-										$response = Unirest::get("https://george-vustrey-weather.p.mashape.com/api.php?_method=getForecasts&location=" . urlencode($param_str), array("X-Mashape-Authorization" => $mash_key));
-										$str = "Forecast for " . $param_str;
-										$str.= "\nToday: ▲ " . round($response->body[0]->high) . "  ▼ " . round($response->body[0]->low) . "  " . $response->body[0]->condition;
-										$str.= "\nTomorrow: ▲ " . round($response->body[1]->high) . "  ▼ " . round($response->body[1]->low) . "  " . $response->body[1]->condition;
-										$conn->message($pl['from'], $str, $pl['type']);
-									} else {
-										$conn->message($pl['from'], "Usage: #weather <location>", $pl['type']);
-									}
-									break;
-
-								case "cat":
-									if ($params[0] == "gif")
-										$cat_xml = curl_get_contents("http://thecatapi.com/api/images/get?format=xml&type=gif");
-									else
-										$cat_xml = curl_get_contents("http://thecatapi.com/api/images/get?format=xml");
-									$cat = new SimpleXMLElement($cat_xml);
-									$conn->message($pl['from'], $cat->data->images->image->url, $pl['type']);
-									break;
-
-								case "yoda":
-									if (!empty($param_str)) {
-										$response = Unirest::get("https://yoda.p.mashape.com/yoda?sentence=" . urlencode($param_str), array("X-Mashape-Authorization" => $mash_key));
-										$conn->message($pl['from'], $response->raw_body, $pl['type']);
-									} else {
-										$conn->message($pl['from'], "Usage: #yoda <sentence>", $pl['type']);
-									}
-									break;
-
-								case "yt":
-								case "youtube":
-									if (!empty($param_str)) {
-										$url = "http://gdata.youtube.com/feeds/api/videos?q=" . urlencode($param_str) . "&alt=json";
-										$result = json_decode(file_get_contents($url), true);
-										if (isset($result['feed']['entry'][0])) {
-											$video = $result['feed']['entry'][0];
-											$conn->message($pl['from'], $video['title']['$t'] . " " . $video['link'][0]['href'], $pl['type']);
-										} else {
-											$conn->message($pl['from'], "Nothing found!", $pl['type']);
-										}
-									} else {
-										$conn->message($pl['from'], "Usage: #yt|youtube <search terms>", $pl['type']);
-									}
-									break;
-
-								case "q":
-								case "go":
-									if (!empty($param_str)) {
-										$url = "http://www.faroo.com/api?q=" . urlencode($param_str) . "&length=1&l=en&src=web&i=false&f=json";
-										$result = json_decode(file_get_contents($url), true);
-										if (isset($result['results'][0])) {
-											$top = $result['results'][0];
-											$conn->message($pl['from'], $top['title'] . " " . $top['url'], $pl['type']);
-										} else {
-											$conn->message($pl['from'], "Nothing found!", $pl['type']);
-										}
-									} else {
-										$conn->message($pl['from'], "Usage: #q|go <search terms>", $pl['type']);
-									}
-									break;
-
-								case "timer":
-									if (empty($params[0])) {
-										if (!empty($timer)) {
-											$conn->message($pl['from'], "Timer running, " . (time() - $timer) . " seconds", $pl['type']);
-										} else {
-											$conn->message($pl['from'], "Timer isn't running!", $pl['type']);
-										}
-									} elseif ($params[0] == "start") {
-										$timer = time();
-										$conn->message($pl['from'], "Starting timer", $pl['type']);
-									} elseif ($params[0] == "stop") {
-										if (!empty($timer)) {
-											$conn->message($pl['from'], "Time: " . (time() - $timer) . " seconds", $pl['type']);
-											unset($timer);
-										} else {
-											$conn->message($pl['from'], "Timer isn't running!", $pl['type']);
-										}
-									}
-									break;
-
-								case "ip":
-									$response = Unirest::get("https://mark-sutuer-ip-utils.p.mashape.com/api.php?_method=getMyIp", array("X-Mashape-Authorization" => $mash_key));
-									$conn->message($pl['from'], $response->body->myIp, $pl['type']);
-									break;
-
-								case "rip":
-								case "rdns":
-									if (!empty($params[0])) {
-										$response = Unirest::get("https://mark-sutuer-ip-utils.p.mashape.com/api.php?_method=resolveIp&address=" . urlencode($params[0]), array("X-Mashape-Authorization" => $mash_key));
-										$conn->message($pl['from'], $response->body->host, $pl['type']);
-									} else {
-										$conn->message($pl['from'], "Usage: #rdns|rip <ip address>", $pl['type']);
-									}
-									break;
-
-								case "qr":
-									if (!empty($param_str)) {
-										$response = Unirest::get("https://mutationevent-qr-code-generator.p.mashape.com/generate.php?content=" . urlencode($param_str), array("X-Mashape-Authorization" => $mash_key));
-										$conn->message($pl['from'], $response->body->image_url, $pl['type']);
-									} else {
-										$conn->message($pl['from'], "Usage: #qr <text>", $pl['type']);
-									}
-									break;
-
-								case "whois":
-									if (!empty($params[0])) {
-										$response = json_decode(curl_get_contents("https://whoiz.herokuapp.com/lookup.json?url=" . urlencode($params[0])));
-										$conn->message($pl['from'], $response, $pl['type']);
-									} else {
-										$conn->message($pl['from'], "Usage: #whois <domain>", $pl['type']);
-									}
-									break;
-
-//                                case "spam!":
-//                                    $max = !empty($params[0]) ? intval($params[0]) : 20;
-//                                    for ($i = 0; $i < $max; $i++) {
-//                                        $conn->message($pl['from'], sha1(microtime()), $pl['type']);
-//                                    }
-//                                    break;
-
-								case "whoami":
-									$conn->message($pl['from'], $pl['from'], $pl['type']);
-									break;
-
-								case "restart!":
-									$conn->message($pl['from'], "/me doesn't do anything, 'cause Alan doesn't know how to do that yet.", $pl['type']);
-									$conn->disconnect();
-									goto start;
-									break;
-
-//                                case "die!":
-//                                    $conn->message($pl['from'], "/me dies", $pl['type']);
-//                                    $conn->disconnect();
-//                                    break;
-
-								case "it":
-									$conn->message($pl['from'], "/me pounds it.", $pl['type']);
-									break;
-
-								case "!":
-									$conn->message($pl['from'], "New Twitter doesn't use a hashbang anymore, history.pushState() was better.", $pl['type']);
-									break;
-
-								case "":
-									// Do nothing on "#"
-									break;
-
-								default:
-									$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
+							if (is_file(dirname(__FILE__) . "/commands/" . $cmd . ".php")) {
+								include dirname(__FILE__) . "/commands/" . $cmd . ".php";
+								$commands[$cmd]($conn, $pl, $params);
+							} else {
+								$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
+								echo dirname(__FILE__) . "/commands/" . $cmd . ".php\n";
 							}
-						} else {
-							$greetings = array(
-								"hi hashbot",
-								"hey hashbot",
-								"hello hashbot",
-								"hi hash",
-								"hey hash"
-							);
-							$basic_msg = trim(preg_replace("/[^a-z0-9 ]/", "", strtolower($msg)));
-							if (in_array($basic_msg, $greetings)) {
-								$conn->message($pl['from'], "Hi!", $pl['type']);
-							}
+
+//								case "whois":
+////									if (!empty($params[0])) {
+////										$response = json_decode(curl_get_contents("https://whoiz.herokuapp.com/lookup.json?url=" . urlencode($params[0])));
+////										$conn->message($pl['from'], $response, $pl['type']);
+////									} else {
+////										$conn->message($pl['from'], "Usage: #whois <domain>", $pl['type']);
+////									}
+//									break;
+
+//								case "restart!":
+//									$conn->message($pl['from'], "/me doesn't do anything, 'cause Alan doesn't know how to do that yet.", $pl['type']);
+//									$conn->disconnect();
+//									goto start;
+//									break;
+//
+//								case "die!":
+//									$conn->message($pl['from'], "/me dies", $pl['type']);
+//									$conn->disconnect();
+//									break;
+
 						}
 					}
 					break;
-				case 'presence':
-					print "Presence: {$pl['from']} [{$pl['show']}] {$pl['status']}\n";
-					break;
+//				case 'presence':
+//					print "Presence: {$pl['from']} [{$pl['show']}] {$pl['status']}\n";
+//					break;
 				case 'session_start':
 					print "Session Start\n";
 					$conn->getRoster();
