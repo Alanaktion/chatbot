@@ -18,9 +18,6 @@ echo "done.\n";
 
 // Build base $commands object
 $commands = array();
-$commands["help"] = function(&$conn, $event, $params) {
-	$conn->message($event['from'], "I'm not very helpful yet. But I am object-based now!", $event['type']);
-};
 
 if ($old_auth) {
 	$conn = new XMPPHP_XMPPOld($server, $port, $user, $pass, $clientid, $domain, $printlog = True, $loglevel = XMPPHP_Log::LEVEL_INFO);
@@ -86,6 +83,17 @@ try {
 							if (is_file(dirname(__FILE__) . "/commands/" . $cmd . ".php")) {
 								include dirname(__FILE__) . "/commands/" . $cmd . ".php";
 								$commands[$cmd]($conn, $pl, $params);
+							} elseif($cmd == "help") {
+								$h = opendir(dirname(__FILE__) . "/commands/");
+								$cmd_list = array();
+								while($f = readdir($h)) {
+									if($f == "." | $f == "..")
+										continue;
+									$cmd_list[] = preg_replace("/\\.php$/", "", $f);
+								}
+								closedir($h);
+								$conn->message($pl['from'], "Available commands: " . implode(", ",$cmd_list), $pl['type']);
+								echo "Available commands: " . implode(", ",$cmd_list) . "\n";
 							} else {
 								$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
 								echo dirname(__FILE__) . "/commands/" . $cmd . ".php\n";
@@ -172,6 +180,25 @@ function curl_get_contents($url) {
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+		$data = curl_exec($curl);
+		curl_close($curl);
+	} else {
+		$data = file_get_contents($url);
+	}
+	return $data;
+}
+
+function curl_post_get_contents($url,$post_data = array(),$content_type = "application/json") {
+	if (in_array('curl', get_loaded_extensions())) {
+		$curl = curl_init($url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+		if($content_type) {
+			curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: ' . $content_type));
+		}
 		$data = curl_exec($curl);
 		curl_close($curl);
 	} else {
