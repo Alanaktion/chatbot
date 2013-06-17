@@ -1,4 +1,4 @@
 <?php
-include "commands/youtube.php";
+include "youtube.php";
 $commands['yt'] = $commands['youtube'];
 ?>
