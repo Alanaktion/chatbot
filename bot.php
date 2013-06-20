@@ -77,7 +77,8 @@ try {
 							}
 
 							$cmd = trim(strtolower(ltrim($cmd, "#")));
-							echo $pl['from'] . ": {$msg}\n";
+							$short_from = substr($pl['from'],0,strpos($pl['from'],"@"));
+							echo $short_from . ": {$msg}\n";
 
 							if (is_file(dirname(__FILE__) . "/commands/" . $cmd . ".php")) {
 								include dirname(__FILE__) . "/commands/" . $cmd . ".php";
