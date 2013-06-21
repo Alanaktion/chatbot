@@ -1,18 +1,22 @@
 #!/usr/bin/php
 <?php
-require 'config.php';
-@error_reporting($errors);
-
 if (!defined('STDIN'))
 	die("Hashbot must be run from the command line.");
 
 $start_time = time();
 
+if(!defined('__DIR__'))
+	define('__DIR__', dirname(__FILE__));
+
+require __DIR__ . '/config.php';
+@error_reporting($errors);
+
 echo "Loading libraries... ";
-include(dirname(__FILE__) . "/lib/XMPPHP/XMPP.php");
-include(dirname(__FILE__) . "/lib/Unirest.php");
+require __DIR__ . "/lib/XMPPHP/XMPP.php";
+include __DIR__ . "/lib/Unirest.php";
+include __DIR__ . "/lib/chatterbotapi.php";
 if ($old_auth) {
-	include(dirname(__FILE__) . "/lib/XMPPHP/XMPP_Old.php");
+	require __DIR__ . "/lib/XMPPHP/XMPP_Old.php";
 }
 echo "done.\n";
 
@@ -57,12 +61,15 @@ try {
 							"hi hash",
 							"hey hash"
 						);
-						$basic_msg = trim(preg_replace("/[^a-z0-9 ]/", "", strtolower($msg)));
+						$basic_msg = trim(preg_replace("/[^a-z ]/", "", strtolower($msg)));
 
 						// Greetings
 						if (in_array($basic_msg, $greetings)) {
-
 							$conn->message($pl['from'], "Hi!", $pl['type']);
+
+						// Colors
+						} elseif (preg_match("/^(#[0-9A-Fa-f]{6})$/",trim($msg))) {
+							$conn->message($pl['from'], "http://www.colorhexa.com/" . trim($msg,"#") . ".png", $pl['type']);
 
 						// Commands
 						} elseif ($msg{0} == "#") {
