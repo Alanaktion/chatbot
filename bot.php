@@ -69,7 +69,7 @@ try {
 
 						// Colors
 						} elseif (preg_match("/^(#[0-9A-Fa-f]{6})$/",trim($msg))) {
-							$conn->message($pl['from'], "http://www.colorhexa.com/" . trim($msg,"#") . ".png", $pl['type']);
+							$conn->message($pl['from'], "http://www.colorhexa.com/" . strtolower(trim($msg,"#")) . ".png", $pl['type']);
 
 						// Commands
 						} elseif ($msg{0} == "#") {
