@@ -92,6 +92,7 @@ try {
 								$commands[$cmd]($conn, $pl, $params);
 							} elseif($cmd == "help") {
 								if (count(explode(" ", $msg)) > 1) {
+									// Return detailed help for a command
 									list($cmd, $param_str) = explode(" ", $msg, 2);
 									$params = explode(" ", $param_str);
 									if(is_file(__DIR__ . "/commands/" . $params[0] . ".txt")) {
@@ -101,14 +102,12 @@ try {
 										$conn->message($pl['from'], "Help is not available for #" . $params[0] . ".  Try running the command without any parameters.", $pl['type']);
 									}
 								} else {
-									$h = opendir(dirname(__FILE__) . "/commands/");
-									$cmd_list = array();
-									while($f = readdir($h)) {
-										if($f == "." | $f == "..")
-											continue;
-										$cmd_list[] = preg_replace("/\\.php$/", "", $f);
+									// Return command list
+									$cmd_list = glob(__DIR__ . "/commands/*.php");
+									foreach($cmd_list as &$cmd) {
+										$cmd = str_replace(".php", "", $cmd);
+										$cmd = str_replace(__DIR__ . "/commands/", "", $cmd);
 									}
-									closedir($h);
 									$conn->message($pl['from'], "Available commands: " . implode(", ",$cmd_list), $pl['type']);
 									echo "Available commands: " . implode(", ",$cmd_list) . "\n";
 								}
