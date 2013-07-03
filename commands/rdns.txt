@@ -1,0 +1,2 @@
+Usage: #rdns <ip address>
+Runs a reverse DNS lookup on the given IP.

@@ -1,0 +1,2 @@
+Usage: #die!
+Kills the bot, but only if you are its master.

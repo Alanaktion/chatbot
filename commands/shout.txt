@@ -1,0 +1,2 @@
+Usage: #shout <words, yo>
+Prints the given words in ASCII Art.  Support for additional fonts is coming soon.

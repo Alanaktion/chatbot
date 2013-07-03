@@ -1,0 +1,3 @@
+Usage: #gl <long url>
+Generates a short URL on goog.gl.
+Currently broken.

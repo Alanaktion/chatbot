@@ -1,0 +1,2 @@
+Usage: #startup
+Generates a (usually stupid) startup idea.

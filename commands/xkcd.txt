@@ -1,0 +1,2 @@
+Usage: #xkcd [number]
+Returns the most recent xkcd comic, or any past comic by number.

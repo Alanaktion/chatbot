@@ -1,0 +1,2 @@
+Usage: #tell <user[@host]|groupchat> <message>
+Sends a message to a specific user or to the currently connected group.

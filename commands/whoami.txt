@@ -1,0 +1,2 @@
+Usage: #whoami
+Tells you who you are, assuming it knows.

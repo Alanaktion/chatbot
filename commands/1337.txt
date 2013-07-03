@@ -1,0 +1,2 @@
+Usage: #1337 <sentence>
+Converts the sentence to leet speak.

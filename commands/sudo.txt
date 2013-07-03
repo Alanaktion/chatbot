@@ -1,0 +1,2 @@
+Usage: #sudo <command>
+Runs a command as the root user.  Sort of.

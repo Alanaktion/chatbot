@@ -1,0 +1,2 @@
+Usage: #ip
+Get the public IP address of the bot.

@@ -1,0 +1,2 @@
+Usage: #qr <text>
+Generates a QR code of the given text.

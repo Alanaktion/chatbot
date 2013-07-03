@@ -1,0 +1,2 @@
+Usage: #timer [start|stop]
+A stopwatch-type thing.  This was just a test command when the bot was first being built.

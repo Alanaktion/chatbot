@@ -1,0 +1,2 @@
+Usage: #say <message>
+Instructs the bot to say a message back to the current user or group.

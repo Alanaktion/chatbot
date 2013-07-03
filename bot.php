@@ -87,20 +87,31 @@ try {
 							$short_from = substr($pl['from'],0,strpos($pl['from'],"@"));
 							echo $short_from . ": {$msg}\n";
 
-							if (is_file(dirname(__FILE__) . "/commands/" . $cmd . ".php")) {
-								include dirname(__FILE__) . "/commands/" . $cmd . ".php";
+							if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {
+								include __DIR__ . "/commands/" . $cmd . ".php";
 								$commands[$cmd]($conn, $pl, $params);
 							} elseif($cmd == "help") {
-								$h = opendir(dirname(__FILE__) . "/commands/");
-								$cmd_list = array();
-								while($f = readdir($h)) {
-									if($f == "." | $f == "..")
-										continue;
-									$cmd_list[] = preg_replace("/\\.php$/", "", $f);
+								if (count(explode(" ", $msg)) > 1) {
+									list($cmd, $param_str) = explode(" ", $msg, 2);
+									$params = explode(" ", $param_str);
+									if(is_file(__DIR__ . "/commands/" . $params[0] . ".txt")) {
+										$help = file_get_contents(__DIR__ . "/commands/" . $params[0] . ".txt");
+										$conn->message($pl['from'], $help, $pl['type']);
+									} else {
+										$conn->message($pl['from'], "Help is not available for #" . $params[0] . ".  Try running the command without any parameters.", $pl['type']);
+									}
+								} else {
+									$h = opendir(dirname(__FILE__) . "/commands/");
+									$cmd_list = array();
+									while($f = readdir($h)) {
+										if($f == "." | $f == "..")
+											continue;
+										$cmd_list[] = preg_replace("/\\.php$/", "", $f);
+									}
+									closedir($h);
+									$conn->message($pl['from'], "Available commands: " . implode(", ",$cmd_list), $pl['type']);
+									echo "Available commands: " . implode(", ",$cmd_list) . "\n";
 								}
-								closedir($h);
-								$conn->message($pl['from'], "Available commands: " . implode(", ",$cmd_list), $pl['type']);
-								echo "Available commands: " . implode(", ",$cmd_list) . "\n";
 							} elseif(!$cmd) {
 								// empty command, do nothing
 							} else {

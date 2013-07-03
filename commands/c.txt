@@ -1,0 +1,2 @@
+Usage: #c <message>
+Sends a message to Cleverbot and returns the response.

@@ -14,7 +14,7 @@ $commands['c'] = function(&$conn, $event, $params) {
 		$response = $chat_session_c->think($param_str);
 		$conn->message($event['from'], trim($response), $event['type']);
 	} else {
-		$conn->message($event['from'], "Usage: #c <words, yo>", $event['type']);
+		$conn->message($event['from'], "Usage: #c <sentence>", $event['type']);
 	}
 }
 ?>

@@ -1,0 +1,3 @@
+Usage: #q <search terms>
+Queries the Faroo Search API and returns the first result.
+Some day I will switch this to use Google.

@@ -1,0 +1,2 @@
+Usage: #cat [category|help] [gif]
+Gets a random cat picture, optionally from a specific category and/or an animated gif.

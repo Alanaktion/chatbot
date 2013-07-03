@@ -4,9 +4,18 @@ $commands['tell'] = function(&$conn, $pl, $params) {
 	if(!empty($params[0])) {
 		$to = $params[0];
 		unset($params[0]);
-		if($to = $room . "@" . $room_server) {
+
+		// Convert alternate forms to complete names
+		if($to == "groupchat") {
+			$to = $room . "@" . $room_server;
+		}
+		if($to == $room . "@" . $room_server) {
 			$pl['type'] = "groupchat";
 		}
+		if(!strpos($to, "@")) {
+			$to = $to . "@" . $server;
+		}
+
 		try {
 			$conn->message($to, implode(" ",$params), $pl['type']);
 		} catch(Exception $ex) {
@@ -14,7 +23,7 @@ $commands['tell'] = function(&$conn, $pl, $params) {
 			$conn->message($pl['from'], "Fatal Error! See console for details.", $pl['type']);
 		}
 	} else {
-		$conn->message($pl['from'], "Usage: #tell <user@host> <message>", $pl['type']);
+		$conn->message($pl['from'], "Usage: #tell <user[@host]|groupchat> <message>", $pl['type']);
 	}
 }
 ?>

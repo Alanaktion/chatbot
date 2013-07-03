@@ -1,0 +1,3 @@
+Usage: #weather <location>
+Gets basic weather information for a given location.
+Location can be in any common format including a ZIP code or State, City format.  International locations are valid.

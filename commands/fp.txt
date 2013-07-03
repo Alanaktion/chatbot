@@ -1,0 +1,2 @@
+Usage: #fp
+Gets a random facepalm image.

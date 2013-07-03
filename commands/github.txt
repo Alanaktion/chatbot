@@ -1,0 +1,2 @@
+Usage: #github <username> [repository]
+Lists a Github user's repositories or shows the last commit to a repository.

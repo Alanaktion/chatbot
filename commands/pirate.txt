@@ -1,0 +1,2 @@
+Usage: #pirate <sentence>
+Converts the sentence to pirate speak! Arrg!

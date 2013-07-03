@@ -1,0 +1,2 @@
+Usage: #yoda <sentence>
+Translates a sentence into Yoda-speak.

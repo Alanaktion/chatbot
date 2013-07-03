@@ -1,0 +1,2 @@
+Usage: #yt|youtube <search terms>
+Returns the first result for the search terms on YouTube.
