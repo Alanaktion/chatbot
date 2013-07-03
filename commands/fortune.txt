@@ -1,0 +1,2 @@
+Usage: #fortune [category]
+Get a random fortune from the classic Unix fortune program.
