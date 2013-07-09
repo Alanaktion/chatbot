@@ -23,3 +23,6 @@ $errors = E_ALL & ~E_DEPRECATED & ~E_NOTICE;
 // Mashape API key
 $mash_key = "";
 
+// Wolfram|Alpha App ID
+$wa_app = "";
+

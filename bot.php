@@ -83,10 +83,17 @@ try {
 								$params = array();
 							}
 
+							// Get a simplified command string
 							$cmd = trim(strtolower(ltrim($cmd, "#")));
+
+							// Output the recived command
 							$short_from = substr($pl['from'],0,strpos($pl['from'],"@"));
+							if ($pl['type'] == "groupchat") {
+								$short_from .= substr($pl['from'],strpos($pl['from'],"/"));
+							}
 							echo $short_from . ": {$msg}\n";
 
+							// Verify the command exists and process it
 							if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {
 								include __DIR__ . "/commands/" . $cmd . ".php";
 								$commands[$cmd]($conn, $pl, $params);
