@@ -88,8 +88,8 @@ try {
 
 							// Output the recived command
 							$short_from = substr($pl['from'],0,strpos($pl['from'],"@"));
-							if ($pl['type'] == "groupchat") {
-								$short_from .= substr($pl['from'],strpos($pl['from'],"/"));
+							if ($pl['type'] == "groupchat" && strpos($pl['realfrom'],"/")) {
+								$short_from .= substr($pl['realfrom'],strpos($pl['realfrom'],"/"));
 							}
 							echo $short_from . ": {$msg}\n";
 
