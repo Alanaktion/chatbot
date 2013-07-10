@@ -87,11 +87,13 @@ try {
 							$cmd = trim(strtolower(ltrim($cmd, "#")));
 
 							// Output the recived command
-							$short_from = substr($pl['from'],0,strpos($pl['from'],"@"));
-							if ($pl['type'] == "groupchat" && strpos($pl['realfrom'],"/")) {
+							$short_from = substr($pl['realfrom'],0,strpos($pl['realfrom'],"@"));
+							if (strpos($pl['realfrom'],"/")) {
 								$short_from .= substr($pl['realfrom'],strpos($pl['realfrom'],"/"));
 							}
-							echo $short_from . ": {$msg}\n";
+
+							if($cmd)
+								echo $short_from . ": {$msg}\n";
 
 							// Verify the command exists and process it
 							if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {
