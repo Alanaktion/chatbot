@@ -1,0 +1,2 @@
+Usage: #domain <domain> [...]
+Checks whether the givenn domains are available to register.

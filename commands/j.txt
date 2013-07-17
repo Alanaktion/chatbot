@@ -1,2 +1,2 @@
-Usage: #c <message>
+Usage: #j <message>
 Sends a message to Jabberwacky and returns the response.

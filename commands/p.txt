@@ -1,2 +1,2 @@
-Usage: #c <message>
+Usage: #p <message>
 Sends a message to the Hashbot PandoraBot and returns the response.
