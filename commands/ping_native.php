@@ -25,7 +25,7 @@ $commands['ping_native'] = function(&$conn, $event, $params) {
 
 		$conn->message($event['from'], $result, $event['type']);
 	} else {
-		$conn->message($event['from'], "Usage: #ping <server> [count]", $event['type']);
+		$conn->message($event['from'], "Usage: #ping_native <server> [count]", $event['type']);
 	}
 }
 ?>
