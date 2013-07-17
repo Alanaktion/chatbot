@@ -1,0 +1,2 @@
+Usage: #geoip <ip address>
+Perform a geo-ip lookup to determine where the IP address is located.

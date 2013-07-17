@@ -1,0 +1,3 @@
+Usage: #ping_native <host> [count]
+Ping a host using the bot's system's native ping tool. If count is not specified, the server will be pinged 5 times.
+No response is given until the system's program exits, so an offline host will cause the command to pause the bot until all ping requests time out.

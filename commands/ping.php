@@ -1,31 +1,16 @@
 <?php
-$commands['ping'] = function(&$conn, $event, $params) {
+$commands['ping'] = function(&$conn, $pl, $params) {
+	global $mash_key;
 	if (!empty($params[0])) {
-
-		// Filter server string
-		$host = preg_replace("/[^a-zA-Z0-9\.-]/","",$params[0]);
-		if(!$host) {
-			$conn->message($event['from'], "Invalid host.", $event['type']);
-			return false;
-		}
-
-		// Check if on Windows
-		$win = (strncasecmp(PHP_OS, 'WIN', 3) == 0);
-
-		// Get [count] parameter
-		if(!empty($params[1])) {
-			$count = intval($params[1]);
+		$response = Unirest::get("https://igor-zachetly-ping-uin.p.mashape.com/pinguin.php?address=" . urlencode($params[0]), array("X-Mashape-Authorization" => $mash_key));
+		if($response->body->result && !empty($response->body->time)) {
+			$output = "Online - " . $response->body->time . "ms";
 		} else {
-			$count = 5;
+			$output = "Unable to connect to host.";
 		}
-
-		// Run command
-		$conn->message($event['from'], "Pinging {$params[0]}...", $event['type']);
-		$result = shell_exec("ping -" . ($win ? "n" : "c") . " {$count} {$host}");
-
-		$conn->message($event['from'], $result, $event['type']);
+		$conn->message($pl['from'], $output, $pl['type']);
 	} else {
-		$conn->message($event['from'], "Usage: #ping <server> [count]", $event['type']);
+		$conn->message($pl['from'], "Usage: #ping <host>", $pl['type']);
 	}
 }
 ?>
