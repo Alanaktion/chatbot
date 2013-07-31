@@ -97,8 +97,13 @@ try {
 
 							// Verify the command exists and process it
 							if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {
-								include __DIR__ . "/commands/" . $cmd . ".php";
-								$commands[$cmd]($conn, $pl, $params);
+								try {
+									include __DIR__ . "/commands/" . $cmd . ".php";
+									$commands[$cmd]($conn, $pl, $params);
+								} catch(Exception $e) {
+									echo $e->getMessage();
+									$conn->message($pl['from'], "An error occurred while running the requested command. See the command line for debugging information.", $pl['type']);
+								}
 							} elseif($cmd == "help") {
 								if (count(explode(" ", $msg)) > 1) {
 									// Return detailed help for a command
@@ -123,7 +128,8 @@ try {
 							} elseif(!$cmd) {
 								// empty command, do nothing
 							} else {
-								$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
+								//$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
+								echo "Unknown command: {$cmd}\n";
 							}
 						}
 					}

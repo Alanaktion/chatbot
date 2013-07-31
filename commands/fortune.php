@@ -6,6 +6,6 @@ $commands['fortune'] = function(&$conn, $event, $params) {
 		$url = "raw";
 	}
 	$response = curl_get_contents("http://alanaktion.net/fun/fortune.php?" . $url);
-	$conn->message($event['from'], $response, $event['type']);
+	$conn->message($event['from'], trim($response), $event['type']);
 }
 ?>
