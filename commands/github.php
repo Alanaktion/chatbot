@@ -6,7 +6,7 @@ $commands['github'] = function(&$conn, $event, $params) {
 			$response = json_decode(curl_get_contents("https://api.github.com/repos/" . $params[0] . "/" . $params[1] . "/commits","alanaktion"));
 			if(!empty($response[0])) {
 				$commit = $response[0]->commit;
-				$conn->message($event['from'], "Last commit:\n" . $commit->author->name . ": " . $commit->message . "\n" . $commit->url, $event['type']);
+				$conn->message($event['from'], "Last commit:\n" . $commit->author->name . ": " . $commit->message . "\n" . $response[0]->html_url, $event['type']);
 			} else {
 				$conn->message($event['from'], $params[0] . "/" . $params[1] . " has no visible commits!", $event['type']);
 			}
