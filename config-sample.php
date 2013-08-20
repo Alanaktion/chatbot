@@ -26,3 +26,7 @@ $mash_key = "";
 // Wolfram|Alpha App ID
 $wa_app = "";
 
+// Windows Azure Account Key (used for #translate)
+$azure_key = "";
+$azure_clientid = "";
+$azure_secret = "";

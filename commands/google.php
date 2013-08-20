@@ -6,7 +6,7 @@ $commands['google'] = function(&$conn, $pl, $params) {
 		$response = json_decode(curl_get_contents($url), true);
 		if (isset($response['responseData']['results'][0])) {
 			$top = $response['responseData']['results'][0];
-			$conn->message($pl['from'], $top['titleNoFormatting'] . " " . $top['url'], $pl['type']);
+			$conn->message($pl['from'], html_entity_decode($top['titleNoFormatting']) . " " . rawurldecode($top['url']), $pl['type']);
 		} else {
 			$conn->message($pl['from'], "Nothing found!", $pl['type']);
 		}
