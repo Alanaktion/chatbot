@@ -13,6 +13,7 @@ $commands['p'] = function(&$conn, $event, $params) {
 		$param_str = implode(" ",$params);
 		$response = $chat_session_p->think($param_str);
 		$response = strip_tags(str_replace(array("<br />","<br>","<br/>"),"\r\n",$response));
+		echo "Response: " . trim($response) . "\n";
 		$conn->message($event['from'], trim($response), $event['type']);
 	} else {
 		$conn->message($event['from'], "Usage: #p <words, yo>", $event['type']);

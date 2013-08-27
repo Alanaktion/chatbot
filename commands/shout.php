@@ -2,7 +2,7 @@
 $commands['shout'] = function(&$conn, $pl, $params) {
 	global $mash_key;
 	if (!empty($params[0])) {
-		if($params[0] == "--fonts") {
+		if($params[0] == "fonts") {
 			$response = curl_get_contents("https://artii.herokuapp.com/fonts_list");
 			$response = implode(", ", explode("\n", $response));
 			$conn->message($pl['from'], "\n" . $response, $pl['type']);
@@ -18,7 +18,7 @@ $commands['shout'] = function(&$conn, $pl, $params) {
 			$conn->message($pl['from'], "\n" . $response, $pl['type']);
 		}
 	} else {
-		$conn->message($pl['from'], "Usage: #shout [--fonts|--font=font] <words, yo>", $pl['type']);
+		$conn->message($pl['from'], "Usage: #shout [fonts|font=font] <words, yo>", $pl['type']);
 	}
 }
 ?>

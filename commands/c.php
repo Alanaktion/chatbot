@@ -12,6 +12,7 @@ $commands['c'] = function(&$conn, $event, $params) {
 	if (!empty($params[0])) {
 		$param_str = implode(" ",$params);
 		$response = $chat_session_c->think($param_str);
+		echo "Response: " . trim($response) . "\n";
 		$conn->message($event['from'], trim($response), $event['type']);
 	} else {
 		$conn->message($event['from'], "Usage: #c <sentence>", $event['type']);

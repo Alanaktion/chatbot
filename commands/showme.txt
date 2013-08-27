@@ -1,2 +1,2 @@
 Usage: #showme <search terms>
-Returns the first result of a Google Images search for the given terms.
+Returns a random result from the first page of a Google Images search for the given terms.
