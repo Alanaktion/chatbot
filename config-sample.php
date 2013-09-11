@@ -18,7 +18,10 @@ $room_server = 'conference.chat.example.com';
 $nick = 'Hashbot';
 
 // Error reporting
-$errors = E_ALL & ~E_DEPRECATED & ~E_NOTICE;
+$errors = E_ALL & ~E_DEPRECATED & ~E_NOTICE
+
+// Time Zone
+$timezone = 'America/Denver';
 
 // Mashape API key
 $mash_key = "";

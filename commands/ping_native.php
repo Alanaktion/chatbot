@@ -3,7 +3,7 @@ $commands['ping_native'] = function(&$conn, $event, $params) {
 	if (!empty($params[0])) {
 
 		// Filter server string
-		$host = preg_replace("/[^a-zA-Z0-9\.-]/","",$params[0]);
+		$host = preg_replace("/[^a-z0-9\\.-]/i", "", $params[0]);
 		if(!$host) {
 			$conn->message($event['from'], "Invalid host.", $event['type']);
 			return false;

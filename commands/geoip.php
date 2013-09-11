@@ -7,7 +7,7 @@ $commands['geoip'] = function(&$conn, $pl, $params) {
 			$output = $response->body->city . ", " . $response->body->region_code . ", " . $response->body->country_code . " ";
 			$output .= "(" . $response->body->latitude . " " . $response->body->longitude . ")";
 		} else {
-			$output = "IP " . $params[0] . "not in database.";
+			$output = "IP " . $params[0] . " not in database.";
 		}
 		$conn->message($pl['from'], $output, $pl['type']);
 	} else {

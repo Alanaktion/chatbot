@@ -10,11 +10,11 @@ $commands['battle'] = function(&$conn, $pl, $params) {
 		}
 
 		$queries[0] = trim($queries[0]);
-		$url0 = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" . urlencode($queries[0]);
+		$url0 = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=1&q=" . urlencode($queries[0]);
 		$response0 = json_decode(curl_get_contents($url0), true);
 
 		$queries[1] = trim($queries[1]);
-		$url1 = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" . urlencode($queries[1]);
+		$url1 = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=1&q=" . urlencode($queries[1]);
 		$response1 = json_decode(curl_get_contents($url1), true);
 
 		if (isset($response0['responseData']['cursor']['estimatedResultCount'])) {
