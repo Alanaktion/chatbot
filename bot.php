@@ -55,13 +55,6 @@ try {
 						elseif ($msg{0} != "#")
 							$msg = '#' . $msg;
 
-						$greetings = array(
-							"hi hashbot",
-							"hey hashbot",
-							"hello hashbot",
-							"hi hash",
-							"hey hash"
-						);
 						$basic_msg = trim(preg_replace("/[^a-z ]/", "", strtolower($msg)));
 
 						// Greetings
@@ -95,6 +88,11 @@ try {
 
 							if($cmd)
 								echo $short_from . ": {$msg}\n";
+
+							// Check for command alias
+							if(!empty($aliases[$cmd])) {
+								$cmd = $aliases[$cmd];
+							}
 
 							// Verify the command exists and process it
 							if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {

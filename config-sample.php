@@ -20,6 +20,22 @@ $nick = 'Hashbot';
 // Error reporting
 $errors = E_ALL & ~E_DEPRECATED & ~E_NOTICE
 
+// Aliases
+$aliases = array(
+	"yt" => "youtube",
+	"=" => "math",
+	"leet" => "1337",
+);
+
+// Greetings
+$greetings = array(
+	"hi hashbot",
+	"hey hashbot",
+	"hello hashbot",
+	"hi hash",
+	"hey hash"
+);
+
 // Time Zone
 $timezone = 'America/Denver';
 
