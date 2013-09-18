@@ -96,7 +96,8 @@
 		$ret = JSON_decode($json, true);
 
 		if ($ret === null){
-			die("Failed to parse JSON:\n$json\n");
+			//die("Failed to parse JSON:\n$json\n");
+			echo "Failed to parse JSON:\n$json\n";
 		}
 
 		return $ret;
