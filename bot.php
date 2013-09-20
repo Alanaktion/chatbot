@@ -94,41 +94,47 @@ try {
 								$cmd = $aliases[$cmd];
 							}
 
-							// Verify the command exists and process it
-							if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {
-								try {
-									include __DIR__ . "/commands/" . $cmd . ".php";
-									$commands[$cmd]($conn, $pl, $params);
-								} catch(Exception $e) {
-									echo $e->getMessage();
-									$conn->message($pl['from'], "An error occurred while running the requested command. See the command line for debugging information.", $pl['type']);
-								}
-							} elseif($cmd == "help") {
-								if (count(explode(" ", $msg)) > 1) {
-									// Return detailed help for a command
-									list($cmd, $param_str) = explode(" ", $msg, 2);
-									$params = explode(" ", $param_str);
-									if(is_file(__DIR__ . "/commands/" . $params[0] . ".txt")) {
-										$help = file_get_contents(__DIR__ . "/commands/" . $params[0] . ".txt");
-										$conn->message($pl['from'], $help, $pl['type']);
-									} else {
-										$conn->message($pl['from'], "Help is not available for #" . $params[0] . ".  Try running the command without any parameters.", $pl['type']);
-									}
-								} else {
-									// Return command list
-									$cmd_list = glob(__DIR__ . "/commands/*.php");
-									foreach($cmd_list as &$cmd) {
-										$cmd = str_replace(".php", "", $cmd);
-										$cmd = str_replace(__DIR__ . "/commands/", "", $cmd);
-									}
-									$conn->message($pl['from'], "Available commands: " . implode(", ",$cmd_list), $pl['type']);
-									echo "Available commands: " . implode(", ",$cmd_list) . "\n";
-								}
-							} elseif(!$cmd) {
-								// empty command, do nothing
+							// Check if command is disabled
+							if(in_array($cmd, $disabled)) {
+								$conn->message($pl['from'], "The {$cmd} command has been disabled.", $pl['type']);
+								echo "Blocked command: {$cmd}\n";
 							} else {
-								//$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
-								echo "Unknown command: {$cmd}\n";
+								// Verify the command exists and process it
+								if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {
+									try {
+										include __DIR__ . "/commands/" . $cmd . ".php";
+										$commands[$cmd]($conn, $pl, $params);
+									} catch(Exception $e) {
+										echo $e->getMessage();
+										$conn->message($pl['from'], "An error occurred while running the requested command. See the command line for debugging information.", $pl['type']);
+									}
+								} elseif($cmd == "help") {
+									if (count(explode(" ", $msg)) > 1) {
+										// Return detailed help for a command
+										list($cmd, $param_str) = explode(" ", $msg, 2);
+										$params = explode(" ", $param_str);
+										if(is_file(__DIR__ . "/commands/" . $params[0] . ".txt")) {
+											$help = file_get_contents(__DIR__ . "/commands/" . $params[0] . ".txt");
+											$conn->message($pl['from'], $help, $pl['type']);
+										} else {
+											$conn->message($pl['from'], "Help is not available for #" . $params[0] . ".  Try running the command without any parameters.", $pl['type']);
+										}
+									} else {
+										// Return command list
+										$cmd_list = glob(__DIR__ . "/commands/*.php");
+										foreach($cmd_list as &$cmd) {
+											$cmd = str_replace(".php", "", $cmd);
+											$cmd = str_replace(__DIR__ . "/commands/", "", $cmd);
+										}
+										$conn->message($pl['from'], "Available commands: " . implode(", ",$cmd_list), $pl['type']);
+										echo "Available commands: " . implode(", ",$cmd_list) . "\n";
+									}
+								} elseif(!$cmd) {
+									// empty command, do nothing
+								} else {
+									//$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
+									echo "Unknown command: {$cmd}\n";
+								}
 							}
 						}
 					}

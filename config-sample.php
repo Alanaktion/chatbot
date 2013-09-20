@@ -20,11 +20,16 @@ $nick = 'Hashbot';
 // Error reporting
 $errors = E_ALL & ~E_DEPRECATED & ~E_NOTICE
 
-// Aliases
+// Command Aliases
 $aliases = array(
 	"yt" => "youtube",
 	"=" => "math",
 	"leet" => "1337",
+);
+
+// Disabled Commands
+$disabled = array(
+	"scream",
 );
 
 // Greetings
@@ -33,7 +38,7 @@ $greetings = array(
 	"hey hashbot",
 	"hello hashbot",
 	"hi hash",
-	"hey hash"
+	"hey hash",
 );
 
 // Time Zone
