@@ -1,5 +1,5 @@
 <?php
-require_once 'lib/json_decode_loose.php';
+include_once dirname(__FILE__) . '/../lib/json_decode_loose.php';
 $commands['math'] = function(&$conn, $event, $params) {
 	if(!empty($params[0])) {
 		// Get Google API result
