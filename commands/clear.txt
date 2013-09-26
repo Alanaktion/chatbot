@@ -1,0 +1,2 @@
+Usage: #clear [lines]
+Clears the chat window by outputting 30 or [lines] new lines.
