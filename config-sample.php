@@ -22,6 +22,7 @@ $errors = E_ALL & ~E_DEPRECATED & ~E_NOTICE
 
 // Command Aliases
 $aliases = array(
+	"commands" => "help",
 	"yt" => "youtube",
 	"=" => "math",
 	"leet" => "1337",
