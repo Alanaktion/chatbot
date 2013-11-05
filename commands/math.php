@@ -1,9 +1,9 @@
 <?php
-include_once dirname(__FILE__) . '/../lib/calculate_string.php';
+include_once dirname(__FILE__) . '/../lib/evalmath.class.php';
 $commands['math'] = function(&$conn, $event, $params) {
 	if(!empty($params[0])) {
-
-		$result = calculate_string(implode(" ", $params));
+		$math = new EvalMath();
+		$result = $math->evaluate(implode(" ", $params));
 		$conn->message($event['from'], $result, $event['type']);
 
 		// Well, Google removed their amazing API, so...
