@@ -179,6 +179,16 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$this->send($out);
 	}
 
+	public function rawmessage($to, $body, $type = 'chat') {
+		$to = htmlspecialchars($to);
+
+		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
+		$out .= $body;
+		$out .= "</message>";
+
+		$this->send($out);
+	}
+
 	/**
 	 * Set Presence
 	 *

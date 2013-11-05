@@ -1,7 +1,13 @@
 <?php
-include_once dirname(__FILE__) . '/../lib/json_decode_loose.php';
+include_once dirname(__FILE__) . '/../lib/calculate_string.php';
 $commands['math'] = function(&$conn, $event, $params) {
 	if(!empty($params[0])) {
+
+		$result = calculate_string(implode(" ", $params));
+		$conn->message($event['from'], $result, $event['type']);
+
+		// Well, Google removed their amazing API, so...
+		/*
 		// Get Google API result
 		$str = curl_get_contents("https://www.google.com/ig/calculator?q=" . urlencode(implode(" ", $params)));
 		//file_put_contents("json.log", $str . "\n", FILE_APPEND);
@@ -26,6 +32,7 @@ $commands['math'] = function(&$conn, $event, $params) {
 			echo $str;
 			$conn->message($event['from'], "API Error", $event['type']);
 		}
+		*/
 	} else {
 		$conn->message($event['from'], "Usage: #math <expression>", $event['type']);
 	}
