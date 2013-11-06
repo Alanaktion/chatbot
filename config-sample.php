@@ -26,6 +26,7 @@ $aliases = array(
 	"yt" => "youtube",
 	"=" => "math",
 	"leet" => "1337",
+	"facepalm" => "fp",
 );
 
 // Disabled Commands

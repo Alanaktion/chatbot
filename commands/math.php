@@ -1,10 +1,16 @@
 <?php
 include_once dirname(__FILE__) . '/../lib/evalmath.class.php';
 $commands['math'] = function(&$conn, $event, $params) {
-	if(!empty($params[0])) {
+	if(isset($params[0])) {
 		$math = new EvalMath();
 		$result = $math->evaluate(implode(" ", $params));
-		$conn->message($event['from'], $result, $event['type']);
+		if($result === false) {
+			$conn->message($event['from'], "Error", $event['type']);
+		} elseif($result > 1000) {
+			$conn->message($event['from'], number_format($result), $event['type']);
+		} else {
+			$conn->message($event['from'], $result, $event['type']);
+		}
 
 		// Well, Google removed their amazing API, so...
 		/*
