@@ -65,7 +65,7 @@ try {
 						} elseif (preg_match("/^(#[0-9A-Fa-f]{6})$/",trim($msg))) {
 							$send = "<body>http://www.colorhexa.com/" . strtolower(trim($msg,"#")) . ".png</body>";
 							$send .= "<html xmlns=\"http://jabber.org/protocol/xhtml-im\"><body xmlns=\"http://www.w3.org/1999/xhtml\"><p><span style=\"color: #" . strtolower(trim($msg,"#")) . ";\">███</span></p></body></html>";
-							$conn->rawmessage($pl['from'], $send , $pl['type']);
+							$conn->rawmessage($pl['from'], $send, $pl['type']);
 
 						// Commands
 						} elseif ($msg{0} == "#") {
