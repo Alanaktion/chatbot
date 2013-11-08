@@ -1,6 +1,9 @@
 <?php
-$commands['rainbow'] = function(&$conn, $pl, $params) {
+$commands['rainbow'] = function(&$conn, $event, $params) {
 	if (!empty($params[0])) {
+		/*$xml = new DOMDocument();
+		$frag = $xml->createDocumentFragment();
+		$text = $xml->saveXML($frag->createTextMode(implode(" ",$params)));*/
 		$text = implode(" ",$params);
 		$ret = "";
 		$colors = array(
@@ -33,23 +36,22 @@ $commands['rainbow'] = function(&$conn, $pl, $params) {
 			'3300ff',
 			'6600ff',
 			'9900ff',
-			'cc00ff');
-
+			'cc00ff'
+		);
 		$i = 0;
-
 		$textlength = strlen($text);
-		while($i<=$textlength) {
+		while($i <= $textlength) {
 			foreach($colors as $value) {
 				if ($text[$i] != "") {
-					$ret .= '<span style="color:#'.$value.';">'.$text[$i]."</span>";
+					$ret .= '<span style="color:#'.$value.';">' . $text[$i] . "</span>";
 				}
 				$i++;
 			}
 		}
 
-		$conn->htmlmessage($pl['from'], $ret, $pl['type']);
+		$conn->htmlmessage($event['from'], $ret, $event['type']);
 	} else {
-		$conn->message($pl['from'], "Usage: #rainbow <words, yo>", $pl['type']);
+		$conn->message($event['from'], "Usage: #rainbow <words, yo>", $event['type']);
 	}
 }
 ?>

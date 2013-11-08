@@ -15,7 +15,6 @@ echo "Loading libraries... ";
 require __DIR__ . "/lib/XMPPHP/XMPP.php";
 include __DIR__ . "/lib/Unirest.php";
 include __DIR__ . "/lib/chatterbotapi.php";
-include __DIR__ . "/lib/math.php";
 if ($old_auth) {
 	require __DIR__ . "/lib/XMPPHP/XMPP_Old.php";
 }
