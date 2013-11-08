@@ -189,11 +189,15 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$this->send($out);
 	}
 
-	public function htmlmessage($to, $body, $type = 'chat') {
+	public function htmlmessage($to, $body, $type = 'chat', $plaintext_body = null) {
 		$to = htmlspecialchars($to);
 
 		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
-		$out .= "<body>" . htmlspecialchars(strip_tags($body)) . "</body>";
+		if($plaintext_body) {
+			$out .= "<body>" . htmlspecialchars($plaintext_body) . "</body>";
+		} else {
+			$out .= "<body>" . htmlspecialchars(strip_tags($body)) . "</body>";
+		}
 		$out .= "<html xmlns=\"http://jabber.org/protocol/xhtml-im\"><body xmlns=\"http://www.w3.org/1999/xhtml\">" . $body . "</body></html>";
 		$out .= "</message>";
 
