@@ -12,7 +12,7 @@ $commands['math'] = function(&$conn, $event, $params) {
 			$conn->message($event['from'], $result, $event['type']);
 		}
 
-		// Well, Google removed their amazing API, so...
+		// Well, Google removed their amazing API, so this is gone.
 		/*
 		// Get Google API result
 		$str = curl_get_contents("https://www.google.com/ig/calculator?q=" . urlencode(implode(" ", $params)));
