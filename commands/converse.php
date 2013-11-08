@@ -18,12 +18,14 @@ $commands['converse'] = function(&$conn, $event, $params) {
 		for($i = 0; $i < $count; $i++) {
 			// Pandorabot
 			$response = $chat_session_p->think($response);
-			echo "JW: " . trim($response) . "\n";
-			$conn->htmlmessage($event['from'], "<span style=\"color: blue;\">PB:</span> " . trim($response), $event['type']);
+			$msg = "<span style=\"color: blue;\">PB:</span> " . trim($response) . " <span style=\"color: #777;\">[" . ($i + 1) . "/" . $count . "]</span>";
+			echo strip_tags($msg) . "\n";
+			$conn->htmlmessage($event['from'], $msg, $event['type']);
 			// Jabberwacky
 			$response = $chat_session_j->think($response);
-			echo "JW: " . trim($response) . "\n";
-			$conn->htmlmessage($event['from'], "<span style=\"color: red;\">JW:</span> " . trim($response), $event['type']);
+			$msg = "<span style=\"color: red;\">JW:</span> " . trim($response) . " <span style=\"color: #777;\">[" . ($i + 1) . "/" . $count . "]</span>";
+			echo strip_tags($msg) . "\n";
+			$conn->htmlmessage($event['from'], $msg, $event['type']);
 		}
 	} else {
 		$conn->message($event['from'], "Usage: #converse <message count> <start phrase>", $event['type']);
