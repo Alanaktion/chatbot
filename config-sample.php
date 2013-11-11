@@ -27,6 +27,7 @@ $aliases = array(
 	"=" => "math",
 	"leet" => "1337",
 	"facepalm" => "fp",
+	"lorem" => "ipsum",
 );
 
 // Disabled Commands

@@ -1,9 +1,6 @@
 <?php
 $commands['rainbow'] = function(&$conn, $event, $params) {
 	if (!empty($params[0])) {
-		/*$xml = new DOMDocument();
-		$frag = $xml->createDocumentFragment();
-		$text = $xml->saveXML($frag->createTextMode(implode(" ",$params)));*/
 		$text = implode(" ",$params);
 		$ret = "";
 		$colors = array(
