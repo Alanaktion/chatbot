@@ -44,6 +44,9 @@ $greetings = array(
 	"hey hash",
 );
 
+// Bad Word Filter
+$filter_badwords = false;
+
 // Time Zone
 $timezone = 'America/Denver';
 

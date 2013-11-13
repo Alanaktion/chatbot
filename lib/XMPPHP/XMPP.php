@@ -180,6 +180,9 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	}
 
 	public function rawmessage($to, $body, $type = 'chat') {
+		global $wordfilter, $wordreplace;
+		$body = str_replace($wordfilter, $wordreplace, $body);
+
 		$to = htmlspecialchars($to);
 
 		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
@@ -190,6 +193,10 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	}
 
 	public function htmlmessage($to, $body, $type = 'chat', $plaintext_body = null) {
+		global $wordfilter, $wordreplace;
+		$body = str_replace($wordfilter, $wordreplace, $body);
+		$plaintext_body = str_replace($wordfilter, $wordreplace, $plaintext_body);
+
 		$to = htmlspecialchars($to);
 
 		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
