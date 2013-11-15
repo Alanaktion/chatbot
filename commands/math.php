@@ -1,11 +1,20 @@
 <?php
 include_once dirname(__FILE__) . '/../lib/evalmath.class.php';
 $commands['math'] = function(&$conn, $event, $params) {
+	global $math;
 	if(isset($params[0])) {
-		$math = new EvalMath();
+		// Reset EvalMath
+		if($params[0] == "reset" || $params[0]=="clear") {
+			unset($math);
+			$conn->message($event['from'], "Calculator reset.", $event['type']);
+			return;
+		}
+		if(empty($math)) {
+			$math = new EvalMath();
+		}
 		$result = $math->evaluate(implode(" ", $params));
 		if($result === false) {
-			$conn->message($event['from'], "Error", $event['type']);
+			$conn->message($event['from'], "Error: " . $math->last_error, $event['type']);
 		} elseif($result > 1000) {
 			$conn->message($event['from'], number_format($result), $event['type']);
 		} else {

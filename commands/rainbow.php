@@ -40,7 +40,7 @@ $commands['rainbow'] = function(&$conn, $event, $params) {
 		while($i <= $textlength) {
 			foreach($colors as $value) {
 				if ($text[$i] != "") {
-					$ret .= '<span style="color:#'.$value.';">' . $text[$i] . "</span>";
+					$ret .= '<span style="color:#'.$value.';">' . htmlentities($text[$i]) . "</span>";
 				}
 				$i++;
 			}

@@ -5,14 +5,19 @@ $commands['domainr'] = function(&$conn, $event, $params) {
 		if(!empty($response->body->error_message)) {
 			$str = "Error: " . $response->body->error_message;
 		} else {
-			$str = "Available domains:";
+			$str = "";
 			foreach($response->body->results as $result) {
-				$str .= "\n" . $result->subdomain . $result->path . ": ";
 				if($result->availability == "available" || $result->availability == "maybe") {
+					$str .= "\n" . $result->subdomain . $result->path . ": ";
 					$str .= $result->availability . " - " . $result->register_url;
-				} else {
-					$str .= $result->availability;
+				/*} else {
+					$str .= $result->availability;*/
 				}
+			}
+			if(!$str) {
+				$str = "No matching domains available.";
+			} else {
+				$str = "Available domains:" . $str;
 			}
 		}
 		$conn->message($event['from'], $str, $event['type']);

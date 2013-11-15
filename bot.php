@@ -22,13 +22,14 @@ echo "done.\n";
 
 if(!empty($filter_badwords)) {
 	echo "Build word filter index... ";
-	$wordfilter = json_decode(gzinflate(file_get_contents("res/badwords.gz")));
+	$wordfilter = json_decode(gzuncompress(file_get_contents("res/badwords.gz")));
 	$wordreplace = array();
 	foreach($wordfilter as $i=>$w) {
 		$wordreplace[$i] = str_repeat("*", strlen($w));
 	}
 	echo count($wordfilter) . " words in index.\nDone.\n";
 } else {
+	echo "Bad word filter disabled.\n";
 	$wordfilter = array();
 }
 
