@@ -12,7 +12,8 @@ $commands['math'] = function(&$conn, $event, $params) {
 		if(empty($math)) {
 			$math = new EvalMath();
 		}
-		$result = $math->evaluate(implode(" ", $params));
+		$expr = str_replace(",", "", implode(" ", $params));
+		$result = $math->evaluate($expr);
 		if($result === false) {
 			$conn->message($event['from'], "Error: " . $math->last_error, $event['type']);
 		} elseif($result > 1000) {
@@ -49,7 +50,7 @@ $commands['math'] = function(&$conn, $event, $params) {
 		}
 		*/
 	} else {
-		$conn->message($event['from'], "Usage: #math <expression>", $event['type']);
+		$conn->message($event['from'], "Usage: #math <expression|clear|reset>", $event['type']);
 	}
 }
 ?>
