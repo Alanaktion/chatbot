@@ -242,10 +242,11 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 
 	public function joinRoom($room, $host, $nick, $password = null) {
 		$out = "<presence to='" . $room . "@" . $host . "/" . $nick . "'><priority>1</priority>";
+		$out .= "<x xmlns='http://jabber.org/protocol/muc'><history maxchars='0'/>";
 		if($password) {
-			$out .= "<x xmlns='http://jabber.org/protocol/muc'><password>{$password}</password></x>";
+			$out .= "<password>{$password}</password>";
 		}
-		$out .= "</presence>";
+		$out .= "</x></presence>";
 		$this->send($out);
 	}
 

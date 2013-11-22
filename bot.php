@@ -37,9 +37,9 @@ if(!empty($filter_badwords)) {
 $commands = array();
 
 if ($old_auth) {
-	$conn = new XMPPHP_XMPPOld($server, $port, $user, $pass, $clientid, $domain, $printlog = True, $loglevel = XMPPHP_Log::LEVEL_INFO);
+	$conn = new XMPPHP_XMPPOld($server, $port, $user, $pass, $clientid, $domain, $printlog = True, empty($logging) ? XMPPHP_Log::LEVEL_INFO : $logging);
 } else {
-	$conn = new XMPPHP_XMPP($server, $port, $user, $pass, $clientid, $domain, $printlog = True, $loglevel = XMPPHP_Log::LEVEL_INFO);
+	$conn = new XMPPHP_XMPP($server, $port, $user, $pass, $clientid, $domain, $printlog = True, empty($logging) ? XMPPHP_Log::LEVEL_INFO : $logging);
 }
 $conn->autoSubscribe();
 
@@ -54,101 +54,98 @@ try {
 			$pl = $event[1];
 			switch ($event[0]) {
 				case 'message':
-					// Ensure previous messages in the room are not processed
-					if (time() - $start_time > 3) {
-						$msg = trim(preg_replace("/\\s+/", " ", $pl['body']));
+					$msg = trim(preg_replace("/\\s+/", " ", $pl['body']));
 
-						$pl['realfrom'] = $pl['from'];
+					$pl['realfrom'] = $pl['from'];
 
-						// Send group messages to the room, not the sender (weird)
-						if ($pl['type'] == "groupchat")
-							$pl['from'] = $room . "@" . $room_server;
-						// Don't require a hash for direct messages
-						elseif ($msg{0} != "#")
-							$msg = '#' . $msg;
+					// Send group messages to the room, not the sender (weird)
+					if ($pl['type'] == "groupchat")
+						$pl['from'] = $room . "@" . $room_server;
+					// Don't require a hash for direct messages
+					elseif ($msg{0} != "#")
+						$msg = '#' . $msg;
 
-						$basic_msg = trim(preg_replace("/[^a-z ]/", "", strtolower($msg)));
+					$basic_msg = trim(preg_replace("/[^a-z ]/", "", strtolower($msg)));
 
-						// Greetings
-						if (in_array($basic_msg, $greetings)) {
-							$conn->message($pl['from'], "Hi!", $pl['type']);
+					// Greetings
+					if (in_array($basic_msg, $greetings)) {
+						$conn->message($pl['from'], "Hi!", $pl['type']);
 
-						// Colors
-						} elseif (preg_match("/^(#[0-9A-Fa-f]{6})$/",trim($msg))) {
-							$send = "<body>http://www.colorhexa.com/" . strtolower(trim($msg,"#")) . ".png</body>";
-							$send .= "<html xmlns=\"http://jabber.org/protocol/xhtml-im\"><body xmlns=\"http://www.w3.org/1999/xhtml\"><p><span style=\"color: #" . strtolower(trim($msg,"#")) . ";\">███</span></p></body></html>";
-							$conn->rawmessage($pl['from'], $send, $pl['type']);
+					// Colors
+					} elseif (preg_match("/^(#[0-9A-Fa-f]{6})$/",trim($msg))) {
+						$send = "<body>http://www.colorhexa.com/" . strtolower(trim($msg,"#")) . ".png</body>";
+						$send .= "<html xmlns=\"http://jabber.org/protocol/xhtml-im\"><body xmlns=\"http://www.w3.org/1999/xhtml\"><p><span style=\"color: #" . strtolower(trim($msg,"#")) . ";\">███</span></p></body></html>";
+						$conn->rawmessage($pl['from'], $send, $pl['type']);
 
-						// Commands
-						} elseif ($msg{0} == "#") {
+					// Commands
+					} elseif ($msg{0} == "#") {
 
-							// Split message into command and parameters
-							if (count(explode(" ", $msg)) > 1) {
-								list($cmd, $param_str) = explode(" ", $msg, 2);
-								$params = explode(" ", $param_str);
-							} else {
-								$cmd = $msg;
-								$params = array();
-							}
+						// Split message into command and parameters
+						if (count(explode(" ", $msg)) > 1) {
+							list($cmd, $param_str) = explode(" ", $msg, 2);
+							$params = explode(" ", $param_str);
+						} else {
+							$cmd = $msg;
+							$params = array();
+						}
 
-							// Get a simplified command string
-							$cmd = trim(strtolower(ltrim($cmd, "#")));
+						// Get a simplified command string
+						$cmd = trim(strtolower(ltrim($cmd, "#")));
 
-							// Output the recived command
-							$short_from = substr($pl['realfrom'],0,strpos($pl['realfrom'],"@"));
-							if (strpos($pl['realfrom'],"/")) {
-								$short_from .= substr($pl['realfrom'],strpos($pl['realfrom'],"/"));
-							}
+						// Output the recived command
+						$short_from = substr($pl['realfrom'],0,strpos($pl['realfrom'],"@"));
+						if (strpos($pl['realfrom'],"/")) {
+							$short_from .= substr($pl['realfrom'],strpos($pl['realfrom'],"/"));
+						}
 
-							if($cmd)
-								echo $short_from . ": {$msg}\n";
+						if($cmd)
+							echo $short_from . ": {$msg}\n";
 
-							// Check for command alias
-							if(!empty($aliases[$cmd])) {
-								$cmd = $aliases[$cmd];
-							}
+						// Check for command alias
+						if(!empty($aliases[$cmd])) {
+							$cmd = $aliases[$cmd];
+						}
 
-							// Check if command is disabled
-							if(in_array($cmd, $disabled)) {
-								$conn->message($pl['from'], "The {$cmd} command has been disabled.", $pl['type']);
-								echo "Blocked command: {$cmd}\n";
-							} else {
-								// Verify the command exists and process it
-								if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {
-									try {
-										include __DIR__ . "/commands/" . $cmd . ".php";
-										$commands[$cmd]($conn, $pl, $params);
-									} catch(Exception $e) {
-										echo $e->getMessage();
-										$conn->message($pl['from'], "An error occurred while running the requested command. See the command line for debugging information.", $pl['type']);
-									}
-								} elseif($cmd == "help") {
-									if (count(explode(" ", $msg)) > 1) {
-										// Return detailed help for a command
-										list($cmd, $param_str) = explode(" ", $msg, 2);
-										$params = explode(" ", $param_str);
-										if(is_file(__DIR__ . "/commands/" . $params[0] . ".txt")) {
-											$help = file_get_contents(__DIR__ . "/commands/" . $params[0] . ".txt");
-											$conn->message($pl['from'], $help, $pl['type']);
-										} else {
-											$conn->message($pl['from'], "Help is not available for #" . $params[0] . ".  Try running the command without any parameters.", $pl['type']);
-										}
-									} else {
-										// Return command list
-										$cmd_list = glob(__DIR__ . "/commands/*.php");
-										foreach($cmd_list as &$cmd) {
-											$cmd = str_replace(".php", "", $cmd);
-											$cmd = str_replace(__DIR__ . "/commands/", "", $cmd);
-										}
-										$conn->message($pl['from'], "Available commands: (" . count($cmd_list) . ")" . implode(", ",$cmd_list), $pl['type']);
-										echo "Available commands: " . implode(", ",$cmd_list) . "\n";
-									}
-								} elseif(!$cmd) {
-									// empty command, do nothing
-								} else {
-									//$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
-									echo "Unknown command: {$cmd}\n";
+						// Check if command is disabled
+						if(in_array($cmd, $disabled)) {
+							$conn->message($pl['from'], "The {$cmd} command has been disabled.", $pl['type']);
+							echo "Blocked command: {$cmd}\n";
+						} else {
+							// Verify the command exists and process it
+							if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {
+								try {
+									include __DIR__ . "/commands/" . $cmd . ".php";
+									$commands[$cmd]($conn, $pl, $params);
+								} catch(Exception $e) {
+									echo $e->getMessage();
+									$conn->message($pl['from'], "An error occurred while running the requested command. See the command line for debugging information.", $pl['type']);
 								}
+							} elseif($cmd == "help") {
+								if (count(explode(" ", $msg)) > 1) {
+									// Return detailed help for a command
+									list($cmd, $param_str) = explode(" ", $msg, 2);
+									$params = explode(" ", $param_str);
+									if(is_file(__DIR__ . "/commands/" . $params[0] . ".txt")) {
+										$help = file_get_contents(__DIR__ . "/commands/" . $params[0] . ".txt");
+										$conn->message($pl['from'], $help, $pl['type']);
+									} else {
+										$conn->message($pl['from'], "Help is not available for #" . $params[0] . ".  Try running the command without any parameters.", $pl['type']);
+									}
+								} else {
+									// Return command list
+									$cmd_list = glob(__DIR__ . "/commands/*.php");
+									foreach($cmd_list as &$cmd) {
+										$cmd = str_replace(".php", "", $cmd);
+										$cmd = str_replace(__DIR__ . "/commands/", "", $cmd);
+									}
+									$conn->message($pl['from'], "Available commands: (" . count($cmd_list) . ")" . implode(", ",$cmd_list), $pl['type']);
+									echo "Available commands: " . implode(", ",$cmd_list) . "\n";
+								}
+							} elseif(!$cmd) {
+								// empty command, do nothing
+							} else {
+								//$conn->message($pl['from'], "Unknown command: {$cmd}", $pl['type']);
+								echo "Unknown command: {$cmd}\n";
 							}
 						}
 					}

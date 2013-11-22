@@ -25,10 +25,12 @@ $commands['shout'] = function(&$conn, $event, $params) {
 			$param_str = implode(" ",$params);
 			$response = curl_get_contents("https://artii.herokuapp.com/make?text=" . urlencode($param_str) . "&font=" . urlencode($font));
 			$conn->message($event['from'], "\n" . rtrim($response), $event['type']);
+			//$conn->htmlmessage($event['from'], "<br><p style='font-family: monospace;'>" . nl2br(htmlentities(rtrim($response))) . '</p>', $event['type'], "\n" . rtrim($response));
 		} else {
 			$param_str = implode(" ",$params);
 			$response = curl_get_contents("https://artii.herokuapp.com/make?text=" . urlencode($param_str));
 			$conn->message($event['from'], "\n" . rtrim($response), $event['type']);
+			//$conn->htmlmessage($event['from'], "<br><p style='font-family: monospace;'>" . nl2br(htmlentities(rtrim($response))) . '</p>', $event['type'], "\n" . rtrim($response));
 		}
 	} else {
 		$conn->message($event['from'], "Usage: #shout [fonts|font=font] <words, yo>", $event['type']);
