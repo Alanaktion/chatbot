@@ -24,12 +24,18 @@ $commands['ipsum'] = function(&$conn, $event, $params) {
 		$sentence_count = rand(3, 6);
 		for($s = 0; $s < $sentence_count; $s++) {
 			shuffle($words);
+
 			$sentence = "";
 			$word_count = rand(4, 8);
 			for($w = 0; $w < $word_count; $w++) {
 				$sentence .= $words[$w] . " ";
 			}
-			$sentences[] = trim(ucfirst($sentence)) . ".";
+
+			if($sentence{1} != "P") {
+				$sentence = ucfirst($sentence);
+			}
+
+			$sentences[] = trim($sentence) . ".";
 		}
 		$str = implode(" ", $sentences);
 	}

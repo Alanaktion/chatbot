@@ -103,7 +103,8 @@ $commands['permute'] = function(&$conn, $pl, $params) {
 			elseif($n>1000000)
 				$str_count = round(($n/1000000),1).' million';
 			elseif($n>1000)
-				$str_count = round(($n/1000),1).' thousand';
+				//$str_count = round(($n/1000),1).' thousand';
+				$str_count = number_format($n);
 
 			$conn->message($pl['from'], "That word has " . $str_count . " permutations. That's a lot.", $pl['type']);
 		} else {

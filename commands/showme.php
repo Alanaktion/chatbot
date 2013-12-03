@@ -8,6 +8,12 @@ $commands['showme'] = function(&$conn, $event, $params) {
 		if(!empty($response->responseData->results)) {
 			$index = array_rand($response->responseData->results);
 			$conn->message($event['from'], $response->responseData->results[$index]->titleNoFormatting . " - " . $response->responseData->results[$index]->unescapedUrl, $event['type']);
+
+			/*$text = $response->responseData->results[$index]->titleNoFormatting . " - " . $response->responseData->results[$index]->unescapedUrl;
+			$html = "<p>" . htmlentities($response->responseData->results[$index]->titleNoFormatting) . "</p><p><img src='" . htmlentities($response->responseData->results[$index]->unescapedUrl) . "' /></p>";
+
+			$conn->htmlmessage($event['from'], $html, $event['type'], $text);*/
+
 		} else {
 			$conn->message($event['from'], "Nada.", $event['type']);
 		}

@@ -20,6 +20,14 @@ $nick = 'Hashbot';
 // Error reporting
 $errors = E_ALL & ~E_DEPRECATED & ~E_NOTICE
 
+// Log level
+const LEVEL_ERROR  = 0;
+const LEVEL_WARNING = 1;
+const LEVEL_INFO = 2;
+const LEVEL_DEBUG = 3;
+const LEVEL_VERBOSE = 4;
+$logging = LEVEL_INFO;
+
 // Command Aliases
 $aliases = array(
 	"commands" => "help",
@@ -33,6 +41,7 @@ $aliases = array(
 // Disabled Commands
 $disabled = array(
 	"scream",
+	"recursion",
 );
 
 // Greetings

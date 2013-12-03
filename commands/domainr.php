@@ -7,9 +7,9 @@ $commands['domainr'] = function(&$conn, $event, $params) {
 		} else {
 			$str = "";
 			foreach($response->body->results as $result) {
-				if($result->availability == "available" || $result->availability == "maybe") {
-					$str .= "\n" . $result->subdomain . $result->path . ": ";
-					$str .= $result->availability . " - " . $result->register_url;
+				if(($result->availability == "available" || $result->availability == "maybe") && empty($result->path)) {
+					//$str .= "\n" . $result->subdomain . $result->path . ": ";
+					$str .= "\n" . $result->subdomain . ": " . $result->availability . " - " . $result->register_url;
 				/*} else {
 					$str .= $result->availability;*/
 				}
