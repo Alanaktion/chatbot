@@ -69,3 +69,8 @@ $wa_app = "";
 $azure_key = "";
 $azure_clientid = "";
 $azure_secret = "";
+
+// Amazon Product Advertising API Access Key
+$amazon_associate_tag = "";
+$amazon_key = "";
+$amazon_secret = "";
