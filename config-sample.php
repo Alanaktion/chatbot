@@ -74,3 +74,9 @@ $azure_secret = "";
 $amazon_associate_tag = "";
 $amazon_key = "";
 $amazon_secret = "";
+
+// Twitter OAuth
+$twitterConsumerKey = "";
+$twitterConsumerSecret = "";
+$twitterOAuthToken = "";
+$twitterOAuthSecret = "";

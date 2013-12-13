@@ -78,7 +78,7 @@ try {
 						$conn->rawmessage($pl['from'], $send, $pl['type']);
 
 					// Commands
-					} elseif ($msg{0} == "#") {
+					} elseif ($msg{0} == "#" && $msg{1} != "\\") {
 
 						// Split message into command and parameters
 						if (count(explode(" ", $msg)) > 1) {
@@ -138,7 +138,7 @@ try {
 										$cmd = str_replace(".php", "", $cmd);
 										$cmd = str_replace(__DIR__ . "/commands/", "", $cmd);
 									}
-									$conn->message($pl['from'], "Available commands: (" . count($cmd_list) . ")" . implode(", ",$cmd_list), $pl['type']);
+									$conn->message($pl['from'], "Available commands (" . count($cmd_list) . "): " . implode(", ",$cmd_list), $pl['type']);
 									echo "Available commands: " . implode(", ",$cmd_list) . "\n";
 								}
 							} elseif(!$cmd) {
