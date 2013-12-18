@@ -5,7 +5,7 @@ $commands['tweet'] = function(&$conn, $event, $params) {
 	if(isset($params[0])) {
 		$tweet = new TwitterOAuth($twitterConsumerKey, $twitterConsumerSecret, $twitterOAuthToken, $twitterOAuthSecret);
 		$message = implode(" ", $params);
-		if(strlen($message) > 140)) {
+		if(strlen($message) > 140) {
 			$conn->message($event['from'], "Error: tweets must be 140 characters or less. That message is " . strlen($message) . ".", $event['type']);
 			return false;
 		}
