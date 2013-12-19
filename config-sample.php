@@ -36,6 +36,7 @@ $aliases = array(
 	"leet" => "1337",
 	"facepalm" => "fp",
 	"lorem" => "ipsum",
+	"movies" => "movie",
 );
 
 // Disabled Commands
@@ -80,3 +81,6 @@ $twitterConsumerKey = "";
 $twitterConsumerSecret = "";
 $twitterOAuthToken = "";
 $twitterOAuthSecret = "";
+
+// The Movie Database
+$tmdb_key = "";
