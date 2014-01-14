@@ -34,7 +34,7 @@ $commands['rainbowshout'] = function(&$conn, $event, $params) {
 					}
 				}
 
-				$conn->htmlmessage($event['from'], "<p>" . $ret . "</p>", $event['type']);
+				$conn->htmlmessage($event['from'], "<p>" . $ret . "</p>", $event['type'], rtrim($response));
 			}
 		}
 	} else {

@@ -46,7 +46,7 @@ $commands['rainbow'] = function(&$conn, $event, $params) {
 			}
 		}
 
-		$conn->htmlmessage($event['from'], $ret, $event['type']);
+		$conn->htmlmessage($event['from'], $ret, $event['type'], "Your client does not support rainbows. Lame.");
 	} else {
 		$conn->message($event['from'], "Usage: #rainbow <words, yo>", $event['type']);
 	}

@@ -47,9 +47,9 @@ $disabled = array(
 
 // Greetings
 $greetings = array(
-	"hi hashbot",
-	"hey hashbot",
-	"hello hashbot",
+	"hi " . strtolower($nick),
+	"hey " . strtolower($nick),
+	"hello " . strtolower($nick),
 	"hi hash",
 	"hey hash",
 );

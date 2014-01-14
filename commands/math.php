@@ -9,13 +9,21 @@ $commands['math'] = function(&$conn, $event, $params) {
 			$conn->message($event['from'], "Calculator reset.", $event['type']);
 			return;
 		}
+
+		// Show user defined variables
+		if($params[0] == "vars") {
+			$vars = $math->vars();
+			$conn->message($event['from'], print_r($vars, true), $event['type']);
+			return;
+		}
+
 		if(empty($math)) {
 			$math = new EvalMath();
 		}
 		$expr = str_replace(",", "", implode(" ", $params));
 		$result = $math->evaluate($expr);
 		if($result === false) {
-			$conn->htmlmessage($event['from'], "<p style='color: red;'>Error: " . $math->last_error . "</p>", $event['type']);
+			$conn->htmlmessage($event['from'], "<p style='color: red;'>Error: " . htmlentities($math->last_error) . "</p>", $event['type']);
 		} elseif($result > 1000) {
 			$conn->message($event['from'], number_format($result), $event['type']);
 		} else {
