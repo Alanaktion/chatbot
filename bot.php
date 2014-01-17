@@ -25,7 +25,7 @@ if(!empty($filter_badwords)) {
 	$wordfilter = json_decode(gzuncompress(file_get_contents("res/badwords.gz")));
 	$wordreplace = array();
 	foreach($wordfilter as $i=>$w) {
-		$wordreplace[$i] = str_repeat("*", strlen($w));
+		$wordreplace["/\\b" . $w . "\\b/"] = str_repeat("*", strlen($w));
 	}
 	echo count($wordfilter) . " words in index.\nDone.\n";
 } else {

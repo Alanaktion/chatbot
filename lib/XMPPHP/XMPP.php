@@ -181,7 +181,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 
 	public function rawmessage($to, $body, $type = 'chat') {
 		global $wordfilter, $wordreplace;
-		$body = str_replace($wordfilter, $wordreplace, $body);
+		$body = preg_replace($wordfilter, $wordreplace, $body);
 
 		$to = htmlspecialchars($to);
 
