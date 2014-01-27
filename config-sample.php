@@ -18,7 +18,7 @@ $room_server = 'conference.chat.example.com';
 $nick = 'Hashbot';
 
 // Error reporting
-$errors = E_ALL & ~E_DEPRECATED & ~E_NOTICE
+$errors = E_ALL & ~E_DEPRECATED & ~E_NOTICE;
 
 // Log level
 const LEVEL_ERROR  = 0;
@@ -44,6 +44,9 @@ $disabled = array(
 	"scream",
 	"recursion",
 );
+
+// Status message
+$status_message = "I'm alive!";
 
 // Greetings
 $greetings = array(
