@@ -158,7 +158,7 @@ try {
 					$conn->getRoster();
 
 					// Go online
-					$conn->presence($status = "I'm alive!");
+					$conn->presence($status = $status_message);
 
 					// Join room (if set)
 					if (!empty($room)) {
