@@ -27,7 +27,7 @@ $commands['weather'] = function(&$conn, $event, $params) {
 		}
 		$conn->message($event['from'], $str, $event['type']);
 	} else {
-		$conn->message($event['from'], "Usage: #weather <location>", $event['type']);
+		$conn->message($event['from'], "Usage: #weather [Nd] <location>", $event['type']);
 	}
 }
 ?>
