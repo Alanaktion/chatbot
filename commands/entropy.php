@@ -13,7 +13,7 @@ $commands['entropy'] = function(&$conn, $pl, $params) {
 		}
 		$conn->message($pl['from'], $entropy . " ($result)", $pl['type']);
 	} else {
-		$conn->message($pl['from'], "Usage: #1337 <sentence>", $pl['type']);
+		$conn->message($pl['from'], "Usage: #entropy <password>", $pl['type']);
 	}
 }
 ?>
