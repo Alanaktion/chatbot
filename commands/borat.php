@@ -4,7 +4,7 @@ $commands['borat'] = function(&$conn, $event, $params) {
 	global $twitterConsumerKey, $twitterConsumerSecret, $twitterOAuthToken, $twitterOAuthSecret;
 
 	$twitter = new TwitterOAuth($twitterConsumerKey, $twitterConsumerSecret, $twitterOAuthToken, $twitterOAuthSecret);
-	$tweets = $twitter->get("statuses/user_timeline", array("screen_name" => "DEVOPS_BORAT"));
+	$tweets = $twitter->get("statuses/user_timeline", array("screen_name" => "DEVOPS_BORAT", "trim_user" => true, "count" => 50));
 
 	$tweet = $tweets[array_rand($tweets)];
 
