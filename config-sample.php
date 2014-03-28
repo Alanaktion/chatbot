@@ -85,5 +85,8 @@ $twitterConsumerSecret = "";
 $twitterOAuthToken = "";
 $twitterOAuthSecret = "";
 
+// Show incoming @mentions in the configured chatroom
+$enable_mentions = false;
+
 // The Movie Database
 $tmdb_key = "";
