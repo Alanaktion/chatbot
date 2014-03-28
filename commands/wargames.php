@@ -1,9 +1,9 @@
 <?php
-$commands['list_games'] = function(&$conn, $pl, $params) {
+$commands['wargames'] = function(&$conn, $pl, $params) {
 	if (!empty($params[0]) && $params[0] == "GLOBAL THERMALNUCLEAR WAR") {
 		$conn->message($event['from'], "LOGON:", $event['type']);	
 		
-	} else if (!empty($params[0]) && $params[0] == "JOSHUA", $event['type']) {
+	} else if (!empty($params[0]) && $params[0] == "JOSHUA") {
 		$conn->message($event['from'], "CPE1704TKS", $event['type']);	
 		$conn->message($event['from'], "U.S. FIRST STRIKE", $event['type']);	
 		sleep(2);
@@ -20,10 +20,10 @@ $commands['list_games'] = function(&$conn, $pl, $params) {
 		$conn->message($event['from'], "A STRANGE GAME. THE ONLY WINNING MOVE IS NOT TO PLAY.", $event['type']);
 		$conn->message($event['from'], "HOW ABOUT A NICE GAME OF CHESS?", $event['type']);
 		
-	} else if (!empty($params[0]) && $params[0] == "TIC-TAC-TOE", $event['type']) {
+	} else if (!empty($params[0]) && $params[0] == "TIC-TAC-TOE") {
 		$conn->message($event['from'], "STALEMATE.", $event['type']);
 		$conn->message($event['from'], "WANT TO PLAY AGAIN", $event['type']);
-	} else if (!empty($params[0]) && implode(" ",($params) == "List Games", $event['type']) {
+	} else if (!empty($params[0]) && implode(" ",($params) == "List Games") {
 		$conn->message($event['from'], "FALKEN'S MAZE
 		BLACK JACK
 		GIN RUMMY
