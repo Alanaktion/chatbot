@@ -1,0 +1,2 @@
+Usage: #list_games [number]
+List the WOPR games list.
