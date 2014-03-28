@@ -31,7 +31,7 @@ $commands['wargames'] = function(&$conn, $event, $params) {
 		$conn->message($event['from'], "HOW ABOUT A NICE GAME OF CHESS?", $event['type']);
 		
 		
-		$conn->joinRoom($room, $room_server, "Haskbot");		
+		$conn->joinRoom($room, $room_server, "Hashbot");		
 		
 	} else if (!empty($params[0]) && $params[0] == "TIC-TAC-TOE") {
 		$conn->message($event['from'], "STALEMATE.", $event['type']);
