@@ -23,7 +23,7 @@ $commands['wargames'] = function(&$conn, $pl, $params) {
 	} else if (!empty($params[0]) && $params[0] == "TIC-TAC-TOE") {
 		$conn->message($event['from'], "STALEMATE.", $event['type']);
 		$conn->message($event['from'], "WANT TO PLAY AGAIN", $event['type']);
-	} else if (!empty($params[0]) && implode(" ",($params) == "List Games") {
+	} else if (!empty($params[0]) && implode(" ", $params) == "List Games") {
 		$conn->message($event['from'], "FALKEN'S MAZE
 		BLACK JACK
 		GIN RUMMY
