@@ -4,7 +4,8 @@ $commands['wargames'] = function(&$conn, $event, $params) {
 		$conn->message($event['from'], "LOGON:", $event['type']);	
 		
 	} else if (!empty($params[0]) && $params[0] == "JOSHUA") {
-		$conn->message($event['from'], "/nick WOPR", $event['type']);		
+		global $room, $room_server, $nick;
+		$conn->joinRoom($room, $room_server, "WOPR");	
 		sleep(2);
 		$conn->message($event['from'], "CPE1704TKS", $event['type']);		
 		sleep(2);
@@ -29,7 +30,8 @@ $commands['wargames'] = function(&$conn, $event, $params) {
 		sleep(2);
 		$conn->message($event['from'], "HOW ABOUT A NICE GAME OF CHESS?", $event['type']);
 		
-		$conn->message($event['from'], "/nick Hashbot", $event['type']);		
+		
+		$conn->joinRoom($room, $room_server, "Haskbot");		
 		
 	} else if (!empty($params[0]) && $params[0] == "TIC-TAC-TOE") {
 		$conn->message($event['from'], "STALEMATE.", $event['type']);
