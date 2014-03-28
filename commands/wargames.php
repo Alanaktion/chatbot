@@ -24,7 +24,8 @@ $commands['wargames'] = function(&$conn, $event, $params) {
 		$conn->message($event['from'], "STALEMATE.", $event['type']);
 		$conn->message($event['from'], "WANT TO PLAY AGAIN", $event['type']);
 	} else if (!empty($params[0]) && implode(" ", $params) == "List Games") {
-		$conn->message($event['from'], "FALKEN'S MAZE
+		$conn->message($event['from'], "
+		FALKEN'S MAZE
 		BLACK JACK
 		GIN RUMMY
 		HEARTS
