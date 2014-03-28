@@ -1,5 +1,5 @@
 <?php
-$commands['wargames'] = function(&$conn, $pl, $params) {
+$commands['wargames'] = function(&$conn, $event, $params) {
 	if (!empty($params[0]) && $params[0] == "GLOBAL THERMALNUCLEAR WAR") {
 		$conn->message($event['from'], "LOGON:", $event['type']);	
 		
