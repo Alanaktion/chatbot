@@ -1,6 +1,6 @@
 <?php
 $commands['wargames'] = function(&$conn, $event, $params) {
-	if (!empty($params[0]) && $params[0] == "GLOBAL THERMALNUCLEAR WAR") {
+	if (!empty($params[0]) && implode(" ", $params) == "GLOBAL THERMALNUCLEAR WAR") {
 		$conn->message($event['from'], "LOGON:", $event['type']);	
 		
 	} else if (!empty($params[0]) && $params[0] == "JOSHUA") {
