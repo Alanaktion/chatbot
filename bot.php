@@ -20,6 +20,7 @@ if ($old_auth) {
 }
 echo "done.\n";
 
+// Language filter
 if(!empty($filter_badwords)) {
 	echo "Build word filter index... ";
 	$wordfilter = json_decode(gzuncompress(file_get_contents("res/badwords.gz")));
@@ -33,8 +34,16 @@ if(!empty($filter_badwords)) {
 	$wordfilter = array();
 }
 
-// Build base $commands object
+// Twitter @mentions
+/*if(!empty($enable_mentions) && !empty($twitterConsumerKey)) {
+	$last_mention_check = time();
+	$last_mention_id = 0;
+}*/
+
+
+// Base $commands and $history arrays
 $commands = array();
+$history = array();
 
 if ($old_auth) {
 	$conn = new XMPPHP_XMPPOld($server, $port, $user, $pass, $clientid, $domain, $printlog = True, empty($logging) ? XMPPHP_Log::LEVEL_INFO : $logging);
@@ -76,6 +85,15 @@ try {
 						$color = strtolower(trim($msg,"#"));
 						$conn->htmlmessage($pl['from'], "<p><span style=\"color: {$color};\">███</span></p>", $pl['type'], "http://www.colorhexa.com/{$color}.png");
 
+					// Re-run last command
+					} elseif ($msg == "##") {
+						if(!empty($history)) {
+							$last_command = $history[count($history) - 1];
+							$commands[$last_command["cmd"]]($conn, $pl, $last_command["params"]);
+						} else {
+							$conn->htmlmessage($pl['from'], "<p><span style=\"color: red;\">No commands have been run yet.</span></p>", $pl['type'], "No commands have been run yet.");
+						}
+
 					// Commands
 					} elseif ($msg{0} == "#" && $msg{1} != "\\") {
 
@@ -114,6 +132,10 @@ try {
 							if (is_file(__DIR__ . "/commands/" . $cmd . ".php")) {
 								try {
 									include __DIR__ . "/commands/" . $cmd . ".php";
+									$history[] = array(
+										"cmd" => $cmd,
+										"params" => $params
+									);
 									$commands[$cmd]($conn, $pl, $params);
 								} catch(Exception $e) {
 									echo $e->getMessage();
