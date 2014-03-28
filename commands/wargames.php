@@ -4,20 +4,27 @@ $commands['wargames'] = function(&$conn, $event, $params) {
 		$conn->message($event['from'], "LOGON:", $event['type']);	
 		
 	} else if (!empty($params[0]) && $params[0] == "JOSHUA") {
-		$conn->message($event['from'], "CPE1704TKS", $event['type']);	
+		$conn->message($event['from'], "CPE1704TKS", $event['type']);		
+		sleep(2);
 		$conn->message($event['from'], "U.S. FIRST STRIKE", $event['type']);	
 		sleep(2);
-		$conn->message($event['from'], "WINNER: NONE", $event['type']);	
+		$conn->message($event['from'], "WINNER: NONE", $event['type']);		
+		sleep(2);
 		$conn->message($event['from'], "USSR FIRST STRIKE", $event['type']);	
 		sleep(2);
-		$conn->message($event['from'], "WINNER: NONE", $event['type']);	
+		$conn->message($event['from'], "WINNER: NONE", $event['type']);		
+		sleep(2);
 		$conn->message($event['from'], "NATO / WARSAW PACT: NONE", $event['type']);	
 		sleep(2);
 		$conn->message($event['from'], "FAR EAST STRATEGY: NONE", $event['type']);	
 		sleep(2);
 		$conn->message($event['from'], "U.S. USSR ESCALATION: NONE", $event['type']);	
+		sleep(2);
 		$conn->message($event['from'], "GREETINGS, PROFESSOR FALKEN.", $event['type']);
+		sleep(2);
 		$conn->message($event['from'], "A STRANGE GAME. THE ONLY WINNING MOVE IS NOT TO PLAY.", $event['type']);
+			
+		sleep(2);
 		$conn->message($event['from'], "HOW ABOUT A NICE GAME OF CHESS?", $event['type']);
 		
 	} else if (!empty($params[0]) && $params[0] == "TIC-TAC-TOE") {
