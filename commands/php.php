@@ -11,14 +11,16 @@ $commands['php'] = function(&$conn, $event, $params) {
 		$msg .= "<a href='http://php.net/" . str_replace("_", "-", $function_name) . "'>{$function_name}</a> ";
 		$msg .= "<span style='color: #737373;'>( ";
 		foreach($doc['.methodsynopsis .methodparam'] as $param) {
-			$msg .= pq($param)->text();
+			$msg .= htmlspecialchars(pq($param)->text());
 		}
 		$msg .= " )</span>";
 
 		// Add description
 		foreach($doc['.refsect1.description .para'] as $para) {
-			$msg .= "<br />\n" . trim(preg_replace("/\s+/", " ", pq($para)->text()));
+			$msg .= "<br />\n" . htmlspecialchars(trim(preg_replace("/\s+/", " ", pq($para)->text())));
 		}
+
+		echo $msg;
 
 		$conn->htmlmessage($event['from'], $msg, $event['type']);
 	} else {
