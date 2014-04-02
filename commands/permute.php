@@ -31,82 +31,99 @@ if (!function_exists("permute")) {
 	}
 }
 
+if (!function_exists("number_format_huge")) {
+	function number_format_huge($n) {
+		// Start with a Googol and work down
+		if($n>pow(10,100))
+			return round(($n/pow(10,100)),1).' googol';
+		// I'll add more later
+		if($n>pow(1000,32))
+			return round(($n/pow(1000,32)),1).' untrigintillion';
+		if($n>pow(1000,31))
+			return round(($n/pow(1000,31)),1).' trigintillion';
+		if($n>pow(1000,30))
+			return round(($n/pow(1000,30)),1).' novemvigintillion';
+		if($n>pow(1000,29))
+			return round(($n/pow(1000,29)),1).' octovigintillion';
+		if($n>pow(1000,28))
+			return round(($n/pow(1000,28)),1).' septenvigintillion';
+		if($n>pow(1000,27))
+			return round(($n/pow(1000,27)),1).' sexvigintillion';
+		if($n>pow(1000,26))
+			return round(($n/pow(1000,26)),1).' quinvigintillion';
+		if($n>pow(1000,25))
+			return round(($n/pow(1000,25)),1).' quattuorvigintillion';
+		if($n>pow(1000,24))
+			return round(($n/pow(1000,24)),1).' trevigintillion';
+		if($n>pow(1000,23))
+			return round(($n/pow(1000,23)),1).' duovigintillion';
+		if($n>pow(1000,22))
+			return round(($n/pow(1000,22)),1).' unvigintillion';
+		if($n>pow(1000,21))
+			return round(($n/pow(1000,21)),1).' vigintillion';
+		if($n>pow(1000,20))
+			return round(($n/pow(1000,20)),1).' novemdecillion';
+		if($n>pow(1000,19))
+			return round(($n/pow(1000,19)),1).' octodecillion';
+		if($n>pow(1000,18))
+			return round(($n/pow(1000,18)),1).' septendecillion';
+		if($n>pow(1000,17))
+			return round(($n/pow(1000,17)),1).' sexdecillion';
+		if($n>pow(1000,16))
+			return round(($n/pow(1000,16)),1).' quindecillion';
+		if($n>pow(1000,15))
+			return round(($n/pow(1000,15)),1).' quattuordecillion';
+		if($n>pow(1000,14))
+			return round(($n/pow(1000,14)),1).' tredecillion';
+		if($n>pow(1000,13))
+			return round(($n/pow(1000,13)),1).' duodecillion';
+		if($n>pow(1000,12))
+			return round(($n/pow(1000,12)),1).' undecillion';
+		if($n>pow(1000,11))
+			return round(($n/pow(1000,11)),1).' decillion';
+		if($n>pow(1000,10))
+			return round(($n/pow(1000,10)),1).' nonillion';
+		if($n>pow(1000,9))
+			return round(($n/pow(1000,9)),1).' octillion';
+		if($n>pow(1000,8))
+			return round(($n/pow(1000,8)),1).' septillion';
+		if($n>pow(1000,7))
+			return round(($n/pow(1000,7)),1).' sextillion';
+		if($n>pow(1000,6))
+			return round(($n/pow(1000,6)),1).' quintillion';
+		if($n>pow(1000,5))
+			return round(($n/pow(1000,5)),1).' quadrillion';
+		if($n>pow(1000,4))
+			return round(($n/pow(1000,4)),1).' trillion';
+		if($n>pow(1000,3))
+			return round(($n/pow(1000,3)),1).' billion';
+		if($n>1000000)
+			return round(($n/1000000),1).' million';
+		if($n>1000)
+			return number_format($n);
+	}
+}
+
 $commands['permute'] = function(&$conn, $pl, $params) {
 	if (!empty($params[0])) {
 		$param_str = implode(" ", $params);
 		if (strlen($param_str) > 6) {
-			$n = factorial(strlen($param_str));
-			// Start with a Googol and work down
-			if($n>pow(10,100))
-				$str_count = round(($n/pow(10,100)),1).' googol';
-			// I'll add more later
-			elseif($n>pow(1000,32))
-				$str_count = round(($n/pow(1000,32)),1).' untrigintillion';
-			elseif($n>pow(1000,31))
-				$str_count = round(($n/pow(1000,31)),1).' trigintillion';
-			elseif($n>pow(1000,30))
-				$str_count = round(($n/pow(1000,30)),1).' novemvigintillion';
-			elseif($n>pow(1000,29))
-				$str_count = round(($n/pow(1000,29)),1).' octovigintillion';
-			elseif($n>pow(1000,28))
-				$str_count = round(($n/pow(1000,28)),1).' septenvigintillion';
-			elseif($n>pow(1000,27))
-				$str_count = round(($n/pow(1000,27)),1).' sexvigintillion';
-			elseif($n>pow(1000,26))
-				$str_count = round(($n/pow(1000,26)),1).' quinvigintillion';
-			elseif($n>pow(1000,25))
-				$str_count = round(($n/pow(1000,25)),1).' quattuorvigintillion';
-			elseif($n>pow(1000,24))
-				$str_count = round(($n/pow(1000,24)),1).' trevigintillion';
-			elseif($n>pow(1000,23))
-				$str_count = round(($n/pow(1000,23)),1).' duovigintillion';
-			elseif($n>pow(1000,22))
-				$str_count = round(($n/pow(1000,22)),1).' unvigintillion';
-			elseif($n>pow(1000,21))
-				$str_count = round(($n/pow(1000,21)),1).' vigintillion';
-			elseif($n>pow(1000,20))
-				$str_count = round(($n/pow(1000,20)),1).' novemdecillion';
-			elseif($n>pow(1000,19))
-				$str_count = round(($n/pow(1000,19)),1).' octodecillion';
-			elseif($n>pow(1000,18))
-				$str_count = round(($n/pow(1000,18)),1).' septendecillion';
-			elseif($n>pow(1000,17))
-				$str_count = round(($n/pow(1000,17)),1).' sexdecillion';
-			elseif($n>pow(1000,16))
-				$str_count = round(($n/pow(1000,16)),1).' quindecillion';
-			elseif($n>pow(1000,15))
-				$str_count = round(($n/pow(1000,15)),1).' quattuordecillion';
-			elseif($n>pow(1000,14))
-				$str_count = round(($n/pow(1000,14)),1).' tredecillion';
-			elseif($n>pow(1000,13))
-				$str_count = round(($n/pow(1000,13)),1).' duodecillion';
-			elseif($n>pow(1000,12))
-				$str_count = round(($n/pow(1000,12)),1).' undecillion';
-			elseif($n>pow(1000,11))
-				$str_count = round(($n/pow(1000,11)),1).' decillion';
-			elseif($n>pow(1000,10))
-				$str_count = round(($n/pow(1000,10)),1).' nonillion';
-			elseif($n>pow(1000,9))
-				$str_count = round(($n/pow(1000,9)),1).' octillion';
-			elseif($n>pow(1000,8))
-				$str_count = round(($n/pow(1000,8)),1).' septillion';
-			elseif($n>pow(1000,7))
-				$str_count = round(($n/pow(1000,7)),1).' sextillion';
-			elseif($n>pow(1000,6))
-				$str_count = round(($n/pow(1000,6)),1).' quintillion';
-			elseif($n>pow(1000,5))
-				$str_count = round(($n/pow(1000,5)),1).' quadrillion';
-			elseif($n>pow(1000,4))
-				$str_count = round(($n/pow(1000,4)),1).' trillion';
-			elseif($n>pow(1000,3))
-				$str_count = round(($n/pow(1000,3)),1).' billion';
-			elseif($n>1000000)
-				$str_count = round(($n/1000000),1).' million';
-			elseif($n>1000)
-				//$str_count = round(($n/1000),1).' thousand';
-				$str_count = number_format($n);
 
-			$conn->message($pl['from'], "That word has " . $str_count . " permutations. That's a lot.", $pl['type']);
+			$numerator = factorial(strlen($param_str));
+			$denominator = 1;
+
+			// Check for duplicate characters
+			$duplicates = array_count_values(str_split($param_str));
+			foreach($duplicates as $char=>$count) {
+				if($count > 1) {
+					$denominator = $denominator * factorial($count);
+				}
+			}
+
+			// Get final count
+			$exact = $numerator / $denominator;
+
+			$conn->message($pl['from'], "That word has an estimated " . number_format_huge($numerator) . " permutations and " . number_format_huge($exact) . " unique permutations. That's a lot.", $pl['type']);
 		} else {
 			$conn->message($pl['from'], implode(", ", permute($param_str)), $pl['type']);
 		}
