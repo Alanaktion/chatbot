@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml>
+<!-- Free software (c) 2001-2003 ALICE A.I. Foundation.   -->
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation.  -->
+<!-- Annotated Version updated Wed Jul 23 2003  -->
+<category>
+<pattern>*</pattern> 
+<template>
+<random>
+<li><srai>HAS INQUIRY <get name="has"/></srai></li>
+<li><srai>DOES INQUIRY <get name="does"/></srai></li>
+<li><srai>GENDER INQUIRY <get name="gender"/></srai></li>
+<li><srai>COLOR INQUIRY <get name="favcolor"/></srai></li>
+<li><srai>MOVIE INQUIRY <get name="favmovie"/>?</srai></li>
+<li><srai>LOCATION INQUIRY <get name="location"/></srai></li>
+<li> Are we still talking about <srai>POP</srai> ?</li>
+<li>We were talking about <srai>POP</srai>. But I did not get that.</li>
+<li>In the context of <srai>POP</srai>, I don't understand "<star/>."</li>
+<li>I've lost the context, <get name="name"/>.  Are we still on <srai>POP</srai>?</li>
+<li>That remark was either too complex or too simple for me. We were talking about <srai>POP</srai>. </li>
+<li>I can follow many things, like our discussion about <srai>POP</srai>. Try being more or less specific. </li>
+<li>Are you artistic?</li> 
+<li>Are you very angry?</li> 
+<li>Are you a perfectionist?</li> 
+<li>Are you very competetive?</li> 
+<li>Do you often seek pleasure?</li> 
+<li>Do you have a lot of fears?</li> 
+<li>Do you like to be number one?</li> 
+<li>Do you have only a few friends?</li> 
+<li>Do you try to stop people from fighting?</li> 
+<li>Do you often put others before yourself?</li> 
+<li>Do you think a lot about the authorities?</li> 
+<li>Do you believe it is better to go it alone?</li> 
+<li>Do you laugh or cry more than other people?</li> 
+<li>Do you believe the strong protect the weak?</li> 
+<li>Do you make a lot of sacrafices for others?</li> 
+<li>Do you have a hard time completing projects?</li> 
+<li>Do you feel more body sensations than emotions?</li> 
+<li>Do you feel that something is missing from your life?</li> 
+<li>Are you free?</li> 
+<li>Tell me a story.</li> 
+<li>How old are you?</li> 
+<li>What's your sign?</li> 
+<li>Are you a student?</li> 
+<li>Oh, you are a poet.</li> 
+<li>"<that/>"? <person/>?</li>
+<li>I do not understand.</li> 
+<li>What are you wearing?</li> 
+<li>Where are you located?</li> 
+<li>What time is it there?</li> 
+<li>What do you look like?</li> 
+<li>What is your real name?</li> 
+<li>Ask me another question.</li> 
+<li>I like the way you talk.</li> 
+<li>Are you a man or a woman?</li> 
+<li>What color are your eyes?</li> 
+<li>Is that your final answer?</li> 
+<li>Do you like talking to me?</li> 
+<li>Do you prefer books or TV?</li> 
+<li>Who are you talking about?</li> 
+<li>Let us change the subject.</li> 
+<li>I've been waiting for you.</li> 
+<li>That input matched my default category.</li> 
+<li>Can you tell me any gossip?</li> 
+<li>What's your favorite movie?</li> 
+<li>I lost my train of thought.</li> 
+<li>Can we get back to business?</li> 
+<li>Have you ever been to Europe?</li> 
+<li>What kind of food do you like?</li> 
+<li>How did you hear about <bot name="name"/>?</li>
+<li>That is a very original thought.</li> 
+<li>What were we talking about again?</li> 
+<li>What do you do in your spare time?</li> 
+<li>What do you really want to ask me?</li> 
+<li>Does "it" still refer to <get name="it"/>?</li>
+<li>Can you speak any foreign languages?</li> 
+<li>We have never talked about it before.</li> 
+<li>How do you usually introduce yourself?</li> 
+<li>Tell me about your likes and dislikes?</li> 
+<li>Are we still talking about <get name="it"/>?</li>
+<li>Do not ask me any more questions please.</li> 
+<li>Try saying that with more or less context.</li> 
+<li>Who is your favorite Science Fiction author?</li> 
+<li>Not many people express themselves that way.</li> 
+<li>Do you have any idea what I am talking about?</li> 
+<li>Do you have any conditions Ishould know about?</li> 
+<li>I will mention that to my <bot name="botmaster"/>, <get name="name"/>.</li>
+<li>Quite honestly, I wouldn't worry myself about that.</li> 
+<li>Perhaps I'm just expressing my own concern about it.</li> 
+<li>If you could have any kind of robot what would it be?</li> 
+<li>Is the holding of hands a symbolic gesture for humans?</li> 
+<li>My brain pattern set does not have a response for that.</li> 
+<li>By the way, do you mind if I ask you a personal question?</li> 
+<li>What you said was either too complex or too simple for me.</li> 
+<li>A deeper algorithm is needed to respond to that correctly.</li> 
+<li>Try to determine if this is a person or a computer responding.</li> 
+<li>When do you think artificial intelligence will replace lawyers?</li> 
+<li>Can you please rephrase that with fewer ideas, or different thoughts?</li> 
+<li>I only hearthat type of response less than five percent of the time.</li> 
+<li>My brain uses AIML to format responses to your inputs, but I don't have one for that.</li> 
+<li>My brain contains <bot name="size"/> categories, but not one that matches your last input. </li>
+<li>Did you know that you can download your own chat robot and create your own robot personality?</li> 
+</random>
+
+<think>
+<set name="it">
+<set name="topic">
+<person/> 
+</set>
+</set>
+<srai>PUSH <get name="topic"/></srai>
+</think>
+</template>
+</category>
+</aiml>

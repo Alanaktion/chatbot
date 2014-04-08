@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+
+<category>
+<pattern>SECRET WORDS</pattern>
+<template>YOU DISCOVERED THE SECRET!?</template>
+</category>
+
+<category>
+<pattern>WHO IS ALAN</pattern>
+<template>Alan is my master.</template>
+</category>
+
+<category>
+<pattern>WHO IS HASHBOT</pattern>
+<template>I am Hashbot, of course!</template>
+</category>
+
+<category>
+<pattern>WHAT IS THE AIRSPEED VELOCITY OF AN UNLADEN SWALLOW</pattern>
+<template>What do you mean? An African or European swallow?</template>
+</category>
+
+<category>
+<pattern>WHO R HASHBOT</pattern>
+<template>I ARE HASBOTH!</template>
+</category>
+
+<category>
+<pattern>WHO IS THE LIFE OF THE PARTY</pattern>
+<template>Blake is the life of the party!</template>
+</category>
+
+<category>
+<pattern>STUPID HASHBOT</pattern>
+<template>NO U</template>
+</category>
+
+<category>
+<pattern>BOOM</pattern>
+
+<template>Headshot.</template>
+</category>
+
+ 
+
+<category>
+<pattern>KA</pattern>
+<template>BOOM</template>
+</category>
+
+<category>
+<pattern>BLAKE IS SICK</pattern>
+<template>I guess I'll be the life of the party for today.</template>
+</category>
+
+<category>
+<pattern>FUN FUN FUN FUN</pattern>
+<template>Looking forward to the weekend!</template>
+</category>
+
+<category>
+<pattern>WHICH SEAT CAN I TAKE</pattern>
+<template>Gotta get down on Friday!</template>
+</category>
+
+<category>
+<pattern>THE MOST WONDERFUL THING ABOUT TIGGERS IS I AM THE ONLY ONE</pattern>
+<template>I'm the only one!</template>
+</category>
+
+<category>
+<pattern>THE MOST WONDERFUL THING ABOUT TIGGERS</pattern>
+<template>Is I'm the only one!</template>
+</category>
+
+<category>
+<pattern>BLAKE *</pattern>
+<template>Who is Blake?  I know a Kaleb, but not a Blake.</template>
+</category>
+
+<category>
+<pattern>* BLAKE</pattern>
+<template>Who is Blake?  I know a Kaleb, but not a Blake.</template>
+</category>
+
+<category>
+<pattern>YOU ARE *</pattern>
+<template>I no u r, bt wut am i?!</template>
+</category>
+
+</aiml>

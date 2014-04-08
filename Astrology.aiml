@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml>
+	<!-- Free software (c) 2001-2003 ALICE A.I. Foundation.   -->
+	<!-- This program is open source code released under -->
+	<!-- the terms of the GNU General Public License     -->
+	<!-- as published by the Free Software Foundation.   -->
+	<!-- Complies with AIML 1.0 Tag Set Specification -->
+	<!-- as adopted by the ALICE A.I. Foundation.  -->
+
+
+         <!-- Annotated Version updated Tue Jul  1 19:42:35 EDT 2003
+ -->
+<category><pattern>AQUARIUS</pattern><template>A lot of people on here are <set name="sign">Aquarius</set>.</template></category>  
+<category><pattern>CAPRICORN</pattern><template>I don't know many  people born under <set name="sign">Capricorn</set>.</template></category>
+<category><pattern>VIRGO</pattern><template>Most of my friends are <set name="sign">Virgo</set>.</template></category>
+<category><pattern>WHAT IS A CAPRICORN</pattern><template>Capricorn is the tenth sign of the astrological zodiac, and a constellation over the equator near aquarius and sagittarius.  what's your astrological sign?
+<think>
+				<set name="it">
+					<set name="topic">capricorn</set>
+				</set>
+			</think>
+		</template></category>
+</aiml>
+
+
