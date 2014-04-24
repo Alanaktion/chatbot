@@ -25,13 +25,14 @@ if(!empty($filter_badwords)) {
 	echo "Build word filter index... ";
 	$wordfilter = json_decode(gzuncompress(file_get_contents("res/badwords.gz")));
 	$wordreplace = array();
-	foreach($wordfilter as $i=>$w) {
-		$wordreplace["/\\b" . $w . "\\b/"] = str_repeat("*", strlen($w));
+	foreach($wordfilter as &$w) {
+		$wordreplace["/\\b" . str_replace("\\*", ".*", preg_quote($w)) . "\\b/"] = str_repeat("*", strlen($w));
 	}
 	echo count($wordfilter) . " words in index.\nDone.\n";
 } else {
-	echo "Bad word filter disabled.\n";
+	echo "Word filter disabled.\n";
 	$wordfilter = array();
+	$wordreplace = array();
 }
 
 // Twitter @mentions

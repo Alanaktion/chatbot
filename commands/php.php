@@ -10,8 +10,25 @@ $commands['php'] = function(&$conn, $event, $params) {
 		$function_name = $doc['.methodsynopsis .methodname']->text();
 		$msg .= "<a href='http://php.net/" . str_replace("_", "-", $function_name) . "'>{$function_name}</a> ";
 		$msg .= "<span style='color: #737373;'>( ";
-		foreach($doc['.methodsynopsis .methodparam'] as $param) {
-			$msg .= htmlspecialchars(pq($param)->text());
+		foreach($doc['.methodsynopsis .methodparam'] as $i=>$param) {
+			$p = pq($param);
+			$optional = !!$p->find(".initializer")->text();
+
+			if($i) {
+				if($optional) {
+					$msg .= " [, ";
+				} else {
+					$msg .= " , ";
+				}
+			} elseif($optional) {
+				$msg .= "[";
+			}
+
+			$msg .= htmlspecialchars($p->text());
+
+			if($optional) {
+				$msg .= " ]";
+			}
 		}
 		$msg .= " )</span>";
 

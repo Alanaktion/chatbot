@@ -162,6 +162,9 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $subject
 	 */
 	public function message($to, $body, $type = 'chat', $subject = null, $payload = null) {
+		global $wordfilter, $wordreplace;
+		$body = preg_replace(array_keys($wordreplace), array_values($wordreplace), $body);
+
 	    if(is_null($type)) {
 	        $type = 'chat';
 	    }
@@ -181,7 +184,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 
 	public function rawmessage($to, $body, $type = 'chat') {
 		global $wordfilter, $wordreplace;
-		$body = preg_replace($wordfilter, $wordreplace, $body);
+		$body = preg_replace(array_keys($wordreplace), array_values($wordreplace), $body);
 
 		$to = htmlspecialchars($to);
 
@@ -194,8 +197,8 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 
 	public function htmlmessage($to, $body, $type = 'chat', $plaintext_body = null) {
 		global $wordfilter, $wordreplace;
-		$body = str_replace($wordfilter, $wordreplace, $body);
-		$plaintext_body = str_replace($wordfilter, $wordreplace, $plaintext_body);
+		$body = preg_replace(array_keys($wordreplace), array_values($wordreplace), $body);
+		$plaintext_body = preg_replace(array_keys($wordreplace), array_values($wordreplace), $plaintext_body);
 
 		$to = htmlspecialchars($to);
 
