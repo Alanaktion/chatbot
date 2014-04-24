@@ -7,7 +7,7 @@ $commands['domain'] = function(&$conn, $event, $params) {
 		if(!empty($response->body->error_message)) {
 			$str = "Error: " . $response->body->error_message;
 		} else {
-			$str = $response->body->domain . ": " . $response->body->availability;
+			$str = $response->body->domain . ": <a href='{$response->body->register_url}'>" . $response->body->availability . "</a>";
 			/*if($response->body->availability == "available") {
 				$html = "<span style='color: green;' title='{$response->body->availability}'>&#9642;</span> {$response->body->domain} <a href='{$response->body->register_url}'>Register</a>";
 			} elseif($response->body->availability == "maybe") {
@@ -16,7 +16,7 @@ $commands['domain'] = function(&$conn, $event, $params) {
 				$html = "<span style='color: red;' title='{$response->body->availability}'>&#9642;</span> {$response->body->domain}";
 			}*/
 		}
-		$conn->message($event['from'], $str, $event['type']);
+		$conn->htmlmessage($event['from'], $str, $event['type']);
 	} else {
 		$conn->message($event['from'], "Usage: #domain <domain>", $event['type']);
 	}
