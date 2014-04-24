@@ -34,7 +34,7 @@ $commands['php'] = function(&$conn, $event, $params) {
 
 		// Add description
 		foreach($doc['.refsect1.description .para'] as $para) {
-			$msg .= "<br />\n" . htmlspecialchars(trim(preg_replace("/\s+/", " ", pq($para)->text())));
+			$msg .= "<br />\n" . htmlspecialchars(trim(preg_replace(array("/[^(\x20-\x7F)]*/", "/\s+/"), array("", " "), pq($para)->text())));
 		}
 
 		echo $msg;
