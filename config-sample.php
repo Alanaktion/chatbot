@@ -43,6 +43,7 @@ $aliases = array(
 $disabled = array(
 	"scream",
 	"recursion",
+	"math_b",
 );
 
 // Status message
