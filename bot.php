@@ -160,6 +160,7 @@ try {
 										$cmd = str_replace(".php", "", $cmd);
 										$cmd = str_replace(__DIR__ . "/commands/", "", $cmd);
 									}
+									$cmd_list = array_diff($cmd_list, $disabled);
 									$conn->message($pl['from'], "Available commands (" . count($cmd_list) . "): " . implode(", ",$cmd_list), $pl['type']);
 									echo "Available commands: " . implode(", ",$cmd_list) . "\n";
 								}
