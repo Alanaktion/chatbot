@@ -42,7 +42,7 @@
 <template>Headshot.</template>
 </category>
 
- 
+
 
 <category>
 <pattern>KA</pattern>
@@ -87,6 +87,16 @@
 <category>
 <pattern>YOU ARE *</pattern>
 <template>I no u r, bt wut am i?!</template>
+</category>
+
+<category>
+<pattern>HAPPY CHRISTMAS RON</pattern>
+<template>Happy Christmas, Harry.</template>
+</category>
+
+<category>
+<pattern>HAPPY CHRISTMAS HARRY</pattern>
+<template>Happy Christmas, Ron.</template>
 </category>
 
 </aiml>
