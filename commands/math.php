@@ -25,7 +25,11 @@ $commands['math'] = function(&$conn, $event, $params) {
 		if($result === false) {
 			$conn->htmlmessage($event['from'], "<p style='color: red;'>Error: " . htmlentities($math->last_error) . "</p>", $event['type']);
 		} elseif($result > 1000) {
-			$conn->message($event['from'], number_format($result), $event['type']);
+			if($result > 9000) {
+				$conn->message($event['from'], "OVER 9000! (" . number_format($result) . ")", $event['type']);
+			} else {
+				$conn->message($event['from'], number_format($result), $event['type']);
+			}
 		} else {
 			$conn->message($event['from'], $result, $event['type']);
 		}
