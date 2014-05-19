@@ -33,36 +33,36 @@ $commands['scrumtime'] = function(&$conn, $pl, $params) {
 		'9900ff',
 		'cc00ff'
 	);
-
 	$i = 0;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
-	sleep(1);
+
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	usleep(250000);
 	$i++;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;C&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
-	sleep(1);
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;C&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	usleep(250000);
 	$i++;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;R&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
-	sleep(1);
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;R&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	usleep(250000);
 	$i++;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;U&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
-	sleep(1);
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;U&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	usleep(250000);
 	$i++;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;M&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
-	sleep(1);
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;M&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	usleep(250000);
 	$i++;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;T&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
-	sleep(1);
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;T&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	usleep(250000);
 	$i++;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;I&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
-	sleep(1);
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;I&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	usleep(250000);
 	$i++;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;M&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
-	sleep(1);
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;M&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	usleep(250000);
 	$i++;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
-	sleep(1);
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	usleep(250000);
 	$i++;
-	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;!&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
+	$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#"+$colors[$i] +"; background: #000;'>&nbsp;&nbsp;!&nbsp;&nbsp;&nbsp;</p>", $pl['type']);
 }
 
 
