@@ -31,9 +31,9 @@ $commands['nutrition'] = function(&$conn, $event, $params) {
 			$calcium = $result->hits[0]->fields->nf_calcium_dv;
 			$iron = $result->hits[0]->fields->nf_iron_dv;
 
-			$html_text = "<br /><b>Name: </b>{$name} <br />";
-			$html_text .= "<b>Brand: </b>{$brand} <br />";
-			$html_text .= "<b>Serving Size: </b>{$serving_size} <br />";
+			$html_text = "<br /><b>Name: </b>{$name}<br />";
+			$html_text .= "<b>Brand: </b>{$brand}<br />";
+			$html_text .= "<b>Serving Size: </b>{$serving_size}<br />";
 			if(!empty($calories)){
 				$html_text .= " <b>Calories: </b>{$calories} <br />";
 			}
@@ -41,37 +41,37 @@ $commands['nutrition'] = function(&$conn, $event, $params) {
 				$html_text .= " <b>Protein: </b>{$protein}g<br />";
 			}
 			if(!empty($fat)){
-				$html_text .= "<b>Fat: </b>{$fat}g <br />";
+				$html_text .= "<b>Fat: </b>{$fat}g<br />";
 			}
 			if(!empty($tran)){
-				$html_text .= "<b>Trans Fat:</b> {$tran}g <br /> ";
+				$html_text .= "<b>Trans Fat:</b> {$tran}g <br />";
 			}
 			if(!empty($cholestorol)){
-				$html_text .= "<b>Cholestorol:</b> {$cholestorol}g <br /> ";
+				$html_text .= "<b>Cholestorol:</b> {$cholestorol}g <br />";
 			}
 			if(!empty($carbs)){
-				$html_text .= "<b>Carbs:</b> {$carbs}g <br /> ";
+				$html_text .= "<b>Carbs:</b> {$carbs}g <br />";
 			}
 			if(!empty($fiber)){
 				$html_text .= " <b>Fiber: </b>{$fiber}g <br />";
 			}
 			if(!empty($sugars)){
-				$html_text .= "<b>Sugars:</b> {$sugars}g <br /> ";
+				$html_text .= "<b>Sugars:</b> {$sugars}g <br />";
 			}
 			if(!empty($sodium)){
-				$html_text .= "<b>Sodium:</b> {$sodium}g <br /> ";
+				$html_text .= "<b>Sodium:</b> {$sodium}g <br />";
 			}
 			if(!empty($vit_a)){
-				$html_text .= "<b>Vitamin A:</b> {$vit_a}% daily value <br /> ";
+				$html_text .= "<b>Vitamin A:</b> {$vit_a}% daily value <br />";
 			}
 			if(!empty($vit_c)){
-				$html_text .= "<b>Vitamin C:</b> {$vit_c}% daily value <br /> ";
+				$html_text .= "<b>Vitamin C:</b> {$vit_c}% daily value <br />";
 			}
 			if(!empty($calcium)){
-				$html_text .= "<b>Calcium:</b> {$calcium}% daily value <br /> ";
+				$html_text .= "<b>Calcium:</b> {$calcium}% daily value <br />";
 			}
 			if(!empty($iron)){
-				$html_text .= "<b>Iron:</b> {$vit_a}% daily value <br /> ";
+				$html_text .= "<b>Iron:</b> {$vit_a}% daily value <br />";
 			}
 
 			$conn->htmlmessage($event['from'], $html_text, $event['type']);
