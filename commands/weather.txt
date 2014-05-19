@@ -1,3 +1,4 @@
-Usage: #weather <location>
+Usage: #weather [Nd] <location>
 Gets basic weather information for a given location.
 Location can be in any common format including a ZIP code or State, City format.  International locations are valid.
+For a custom number of days, supply the Nd paramter, like "5d" for five days.

@@ -162,6 +162,9 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $subject
 	 */
 	public function message($to, $body, $type = 'chat', $subject = null, $payload = null) {
+		global $wordfilter, $wordreplace;
+		$body = preg_replace(array_keys($wordreplace), array_values($wordreplace), $body);
+
 	    if(is_null($type)) {
 	        $type = 'chat';
 	    }
@@ -174,6 +177,38 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		if($subject) $out .= "<subject>$subject</subject>";
 		$out .= "<body>$body</body>";
 		if($payload) $out .= $payload;
+		$out .= "</message>";
+
+		$this->send($out);
+	}
+
+	public function rawmessage($to, $body, $type = 'chat') {
+		global $wordfilter, $wordreplace;
+		$body = preg_replace(array_keys($wordreplace), array_values($wordreplace), $body);
+
+		$to = htmlspecialchars($to);
+
+		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
+		$out .= $body;
+		$out .= "</message>";
+
+		$this->send($out);
+	}
+
+	public function htmlmessage($to, $body, $type = 'chat', $plaintext_body = null) {
+		global $wordfilter, $wordreplace;
+		$body = preg_replace(array_keys($wordreplace), array_values($wordreplace), $body);
+		$plaintext_body = preg_replace(array_keys($wordreplace), array_values($wordreplace), $plaintext_body);
+
+		$to = htmlspecialchars($to);
+
+		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
+		if($plaintext_body) {
+			$out .= "<body>" . htmlspecialchars($plaintext_body) . "</body>";
+		} else {
+			$out .= "<body>" . htmlspecialchars(strip_tags($body)) . "</body>";
+		}
+		$out .= "<html xmlns=\"http://jabber.org/protocol/xhtml-im\"><body xmlns=\"http://www.w3.org/1999/xhtml\">" . $body . "</body></html>";
 		$out .= "</message>";
 
 		$this->send($out);
@@ -208,16 +243,15 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$this->send($out);
 	}
 
-    public function joinRoom($room, $host, $nick, $password = null) {
-        $out = "<presence to='" . $room . "@" . $host . "/" . $nick . "'><priority>1</priority>";
-        if($password)
-            $out .= "<x xmlns='http://jabber.org/protocol/muc'><password>{$password}</password></x>";
-        $out .= "</presence>";
-
-        "<presence to='{$room}@{$host}/{$nick}><priority>1</priority><x xmlns='http://jabber.org/protocol/muc'><password>monkeybrains</password></x></presence>";
-
+	public function joinRoom($room, $host, $nick, $password = null) {
+		$out = "<presence to='" . $room . "@" . $host . "/" . $nick . "'><priority>1</priority>";
+		$out .= "<x xmlns='http://jabber.org/protocol/muc'><history maxchars='0'/>";
+		if($password) {
+			$out .= "<password>{$password}</password>";
+		}
+		$out .= "</x></presence>";
 		$this->send($out);
-    }
+	}
 
 	/**
 	 * Send Auth request

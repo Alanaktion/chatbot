@@ -1,0 +1,3 @@
+Usage: #help [command]
+Running #help without any parameters lists all available commands.
+If the command parameter is specified, the help page for that command will be shown, if one is available.

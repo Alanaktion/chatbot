@@ -1,0 +1,2 @@
+Usage: #ud <word>
+Show the definition of a word according to Urban Dictionary

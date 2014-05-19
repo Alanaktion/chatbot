@@ -1,0 +1,2 @@
+Usage: #wargames [number]
+List the WOPR games list.
