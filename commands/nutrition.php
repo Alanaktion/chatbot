@@ -7,7 +7,7 @@ $commands['nutrition'] = function(&$conn, $event, $params) {
 			return;
 		}
 		$result =file_get_contents("https://api.nutritionix.com/v1_1/search/" . urlencode($param) . "?results=0:1&fields=item_name,brand_name,nf_calories,nf_total_fat,nf_cholestorol,nf_sodium_nf_total_carbohydrate,nf_dietary_fiber,nf_sugars,nf_protein,nf_vitamin_a,nf_vitamin_c,nf_calcium,nf_iron&appId=39f195bb&appKey=580ad3c3d167b790a9bc80e4a9f0b299");
-		if(!empty($result->hits)) {
+		if(!empty($result->hits[0])) {
 			$name = $json_output->hits[0]->fields->item_name;
 			$brand = $json_output->hits[0]->fields->brand_name;
 			$calories = $json_output->hits[0]->fields->nf_calories;
