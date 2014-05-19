@@ -14,7 +14,7 @@ $commands['nutrition'] = function(&$conn, $event, $params) {
 
 			$serving_size = $result->hits[0]->fields->nf_serving_size_qty . " " . $result->hits[0]->fields->nf_serving_size_unit;
 			if ($result->hits[0]->fields->nf_serving_size_unit != "grams"){
-				$serving_size .= "(" . $result->hits[0]->fields->nf_serving_weight_grams . "g )";
+				$serving_size .= " (" . $result->hits[0]->fields->nf_serving_weight_grams . "g )";
 			}
 
 			$protein = $result->hits[0]->fields->nf_protein;
