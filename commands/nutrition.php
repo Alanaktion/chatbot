@@ -1,7 +1,7 @@
 <?php
 $commands['nutrition'] = function(&$conn, $event, $params) {
 	if(!empty($params[0])) {
-		$search = strtolower(implode($params));
+		$search = strtolower(implode(" ", $params));
 		if($search == "pizza") {
 			$conn->message($event['from'], "Bad", $event['type']);
 			return;
