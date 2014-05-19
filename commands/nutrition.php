@@ -13,10 +13,6 @@ $commands['nutrition'] = function(&$conn, $event, $params) {
 			$brand = $result->hits[0]->fields->brand_name;
 
 			$serving_size = $result->hits[0]->fields->nf_serving_size_qty . " " . $result->hits[0]->fields->nf_serving_size_unit;
-			if ($result->hits[0]->fields->nf_serving_size_unit != "grams"){
-				$serving_size .= "(" . $result->hits[0]->fields->nf_serving_size_unit . "g )";
-			}
-
 			$protein = $result->hits[0]->fields->nf_protein;
 			$fat = $result->hits[0]->fields->nf_total_fat;
 			$calories = $result->hits[0]->fields->nf_calories;
