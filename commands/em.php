@@ -153,8 +153,8 @@ $commands['em'] = function(&$conn, $pl, $params) {
 		while($i <= $textlength) {
 			foreach($colors as $value) {
 				if ($text[$i] != "") {
-					$conn->htmlmessage($pl['from'], "<p style='font-size: xx-large; font-weight: bold; color:#{$value};  background: #000; padding:0 60px;'>  {$text[$i]}   </p>", $pl['type']);
-					usleep(150000);
+					$conn->htmlmessage($pl['from'], "<p style='font-size: large; font-weight: bold; color:#{$value};  background: #000; padding:0 60px;'>  {$text[$i]}   </p>", $pl['type']);
+					usleep(90000);
 				}
 				$i++;
 			}
