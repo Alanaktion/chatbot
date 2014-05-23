@@ -59,7 +59,7 @@ $commands['nutrition'] = function(&$conn, $event, $params) {
 				$html_text .= "<b>Sugars:</b> {$sugars}g<br />";
 			}
 			if(!empty($sodium)){
-				$html_text .= "<b>Sodium:</b> {$sodium}g<br />";
+				$html_text .= "<b>Sodium:</b> {$sodium}mg<br />";
 			}
 			if(!empty($vit_a)){
 				$html_text .= "<b>Vitamin A:</b> {$vit_a}% daily value<br />";
