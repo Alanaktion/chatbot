@@ -1,0 +1,2 @@
+Usage: #loic [url]
+Fire the LOIC on [url].
