@@ -46,9 +46,9 @@ $commands['rainbowshout2'] = function(&$conn, $event, $params) {
 			}
 		}
 
-		$conn->htmlmessage($event['from'], "<p style='font-size: xx-large; font-weight: bold; color:yellow; background: #000;'>" . $ret . "</p>", $event['type'], "Your client does not support rainbows. Lame.");
+		$conn->htmlmessage($event['from'], "<p style='font-size:xx-large;font-weight:bold;background:#000;'>" . $ret . "</p>", $event['type'], "Your client does not support rainbows. Lame.");
 	} else {
-		$conn->message($event['from'], "Usage: #rainbow <words, yo>", $event['type']);
+		$conn->message($event['from'], "Usage: #rainbowshout2 <words, yo>", $event['type']);
 	}
 }
 ?>
