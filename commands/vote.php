@@ -1,5 +1,5 @@
 <?php
-$commands['rand'] = function(&$conn, $event, $params) {
+$commands['vote'] = function(&$conn, $event, $params) {
 	
 	$val = rand(0,1);
 	if($val == 1) {
