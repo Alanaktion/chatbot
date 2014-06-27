@@ -85,11 +85,6 @@
 </category>
 
 <category>
-<pattern>YOU ARE *</pattern>
-<template>I no u r, bt wut am i?!</template>
-</category>
-
-<category>
 <pattern>HAPPY CHRISTMAS RON</pattern>
 <template>Happy Christmas, Harry.</template>
 </category>
