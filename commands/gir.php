@@ -16,7 +16,8 @@ $commands['gir'] = function(&$conn, $event, $params) {
 		"Doom doom doom doom doomy doomy doom doomy doom doom doom doom doom doom doom",
 		"Aww, it likes me.",
 		"YAY!",
-		"I love this show!"
+		"I love this show!",
+		"But I NEEED TACOS! I need them or I will explode. That happens to me sometimes."
 	);
 	$conn->message($event['from'], $responses[array_rand($responses)], $event['type']);
 }

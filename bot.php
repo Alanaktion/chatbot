@@ -126,7 +126,7 @@ try {
 
 						// Check if command is disabled
 						if(in_array($cmd, $disabled)) {
-							$conn->message($pl['from'], "The {$cmd} command has been disabled.", $pl['type']);
+							$conn->message($pl['from'], "The #{$cmd} command has been disabled.", $pl['type']);
 							echo "Blocked command: {$cmd}\n";
 						} else {
 							// Verify the command exists and process it

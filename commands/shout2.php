@@ -5,7 +5,7 @@ $commands['shout2'] = function(&$conn, $event, $params) {
 	} elseif ($params[0]{0} == "#") {
 		$conn->message($event['from'], "Wat.", $event['type']);
 	} else {
-		$conn->htmlmessage($event['from'], "<p><span style='font-size: xx-large; font-weight: bold; color:yellow; background: #444;'>" . htmlentities(implode(" ", $params)) . "</span></p>", $event['type']);
+		$conn->htmlmessage($event['from'], "<p><span style='font-size:xx-large;font-weight:bold;color:yellow;background:#444;'>" . htmlentities(implode(" ", $params)) . "</span></p>", $event['type']);
 	}
 }
 ?>
