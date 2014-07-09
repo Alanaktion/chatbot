@@ -1,5 +1,5 @@
 <?php
 $commands['whoami'] = function(&$conn, $pl, $params) {
-	$conn->message($pl['from'], $pl['realfrom'] . " bit.ly/GQ5vfd", $pl['type'] );
+	$conn->htmlmessage($pl['from'], "<a href='http://bit.ly/GQ5vfd'>" . $pl['realfrom'] . "</a>", $pl['type'], $pl['realfrom']);
 }
 ?>
