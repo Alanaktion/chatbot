@@ -45,9 +45,15 @@ $commands['prime'] = function(&$conn, $pl, $params) {
 				$max = $result[count($result) - 1];
 		}
 
-		$conn->message($pl['from'], $max, $pl['type']);
+		if(!empty($params[1]) && intval($params[1]) && isset($result)) {
+			$display_result = array_slice($result, -$params[1]);
+			$conn->message($pl['from'], implode(", ", $display_result), $pl['type']);
+		} else {
+			$conn->message($pl['from'], $max, $pl['type']);
+		}
+
 	} else {
-		$conn->message($pl['from'], "Usage: #prime <max>", $pl['type']);
+		$conn->message($pl['from'], "Usage: #prime <max> [count]", $pl['type']);
 	}
 }
 ?>
