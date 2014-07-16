@@ -94,4 +94,9 @@
 <template>Happy Christmas, Ron.</template>
 </category>
 
+<category>
+<pattern>IZZATIME</pattern>
+<template>Is it pizza time already?!</template>
+</category>
+
 </aiml>
