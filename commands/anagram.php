@@ -10,6 +10,7 @@ $commands['anagram'] = function(&$conn, $event, $params) {
 		if(!empty($result->all)) {
 			$conn->message($event['from'], implode(", ", $result->all), $event['type']);
 		} else {
+			print_r($result);
 			$conn->message($event['from'], "No anagrams found.", $event['type']);
 		}
 	} else {

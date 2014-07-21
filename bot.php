@@ -137,7 +137,11 @@ try {
 										"cmd" => $cmd,
 										"params" => $params
 									);
-									$commands[$cmd]($conn, $pl, $params);
+									if(isset($comments[$cmd])) {
+										$commands[$cmd]($conn, $pl, $params);
+									} else {
+										$conn->message($pl['from'], "The requested command was found in the filesystem, but was not available to call as a function. Check the function name in the commands/$cmd.php.", $pl['type']);
+									}
 								} catch(Exception $e) {
 									echo $e->getMessage();
 									$conn->message($pl['from'], "An error occurred while running the requested command. See the command line for debugging information.", $pl['type']);
