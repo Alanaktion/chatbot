@@ -137,7 +137,7 @@ try {
 										"cmd" => $cmd,
 										"params" => $params
 									);
-									if(isset($comments[$cmd])) {
+									if(isset($commands[$cmd])) {
 										$commands[$cmd]($conn, $pl, $params);
 									} else {
 										$conn->message($pl['from'], "The requested command was found in the filesystem, but was not available to call as a function. Check the function name in the commands/$cmd.php.", $pl['type']);
