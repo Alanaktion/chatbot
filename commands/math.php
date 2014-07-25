@@ -9,6 +9,11 @@ $commands['math'] = function(&$conn, $event, $params) use ($math) {
 			return;
 		}
 
+		// Ensure $math is defined
+		if(empty($math)) {
+			$math = new EvalMath();
+		}
+
 		// Show user defined variables
 		if($params[0] == "vars") {
 			$vars = $math->vars();
@@ -16,9 +21,6 @@ $commands['math'] = function(&$conn, $event, $params) use ($math) {
 			return;
 		}
 
-		if(empty($math)) {
-			$math = new EvalMath();
-		}
 		$expr = str_replace(",", "", implode(" ", $params));
 		$result = $math->evaluate($expr);
 		if($result === false) {
