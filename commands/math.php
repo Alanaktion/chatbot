@@ -10,14 +10,19 @@ $commands['math'] = function(&$conn, $event, $params) use ($math) {
 		}
 
 		// Ensure $math is defined
-		if(empty($math)) {
+		if(!isset($math)) {
 			$math = new EvalMath();
 		}
 
-		// Show user defined variables
+		// Show user defined variables and functions
 		if($params[0] == "vars") {
 			$vars = $math->vars();
 			$conn->message($event['from'], print_r($vars, true), $event['type']);
+			return;
+		}
+		if($params[0] == "funcs") {
+			$funcs = $math->funcs();
+			$conn->message($event['from'], print_r($funcs, true), $event['type']);
 			return;
 		}
 
