@@ -37,6 +37,7 @@ $aliases = array(
 	"facepalm" => "fp",
 	"lorem" => "ipsum",
 	"movies" => "movie",
+	"arand" => "array-rand",
 );
 
 // Disabled Commands
