@@ -3,13 +3,13 @@ $commands['vote'] = function(&$conn, $event, $params) {
 	
 	$val = rand(0,1);
 	if($val == 1) {
-		$response = "(y) Yes";
+		$response = "<a href='http://xkcd.com/yes/'>(y) Yes</a>";
 	} else {
-		$response = "👎 No";
+		$response = "<a href='http://xkcd.com/no/'>👎 No</a>";
 	}
 	
 	if(isset($response)) {
-		$conn->message($event['from'], $response, $event['type']);
+		$conn->htmlmessage($event['from'], $response, $event['type']);
 	} else {
 		$conn->message($event['from'], "Usage: #vote", $event['type']);
 	}
