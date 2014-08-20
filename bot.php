@@ -153,7 +153,7 @@ try {
 									$params = explode(" ", $param_str);
 									if(is_file(__DIR__ . "/commands/" . $params[0] . ".txt")) {
 										$help = file_get_contents(__DIR__ . "/commands/" . $params[0] . ".txt");
-										$conn->message($pl['from'], $help, $pl['type']);
+										$conn->message($pl['from'], trim($help), $pl['type']);
 									} else {
 										$conn->message($pl['from'], "Help is not available for #" . $params[0] . ".  Try running the command without any parameters.", $pl['type']);
 									}
