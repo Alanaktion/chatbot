@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <aiml version="1.0">
 
 <category>
@@ -38,11 +38,8 @@
 
 <category>
 <pattern>BOOM</pattern>
-
 <template>Headshot.</template>
 </category>
-
-
 
 <category>
 <pattern>KA</pattern>
@@ -97,6 +94,21 @@
 <category>
 <pattern>IZZATIME</pattern>
 <template>Is it pizza time already?!</template>
+</category>
+
+<category>
+<pattern>VAR MESSAGE</pattern>
+<template>Do you liek mudkipz? Y/N</template>
+</category>
+
+<category>
+<pattern>DO YOU LIEK MUDKIPZ Y N</pattern>
+<template>Y</template>
+</category>
+
+<category>
+<pattern>DO YOU LIEK MUDKIPZ</pattern>
+<template>Y</template>
 </category>
 
 </aiml>
