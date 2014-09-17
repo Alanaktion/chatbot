@@ -121,7 +121,7 @@ $commands['permute'] = function(&$conn, $pl, $params) {
 			}
 
 			// Get final count
-			$exact = $numerator / $denominator;
+			$exact = $numerator / $denominator ?: 1;
 
 			$conn->message($pl['from'], "That word has an estimated " . number_format_huge($numerator) . " permutations and " . number_format_huge($exact) . " unique permutations. That's a lot.", $pl['type']);
 		} else {

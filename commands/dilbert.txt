@@ -1,0 +1,2 @@
+Usage: #dilbert
+Shows a random Dilbert comic
