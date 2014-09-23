@@ -1,0 +1,2 @@
+Usage: #rebuild [url]
+Rebuild a area destory by the LOIC on [url].
