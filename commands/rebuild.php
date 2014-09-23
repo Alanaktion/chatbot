@@ -1,5 +1,5 @@
 <?php
-$commands['remove'] = function(&$conn, $event, $params) {
+$commands['rebuild'] = function(&$conn, $event, $params) {
 	if (!empty($params[0])) {
 		$conn->message($event['from'], "Rebuilding...", $event['type']);	
 		sleep(2);
