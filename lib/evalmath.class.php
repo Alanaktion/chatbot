@@ -91,9 +91,9 @@ class EvalMath {
     var $suppress_errors = false;
     var $last_error = null;
 
-    var $v = array('e'=>2.71,'pi'=>3.14); // variables (and constants)
+    var $v = array('e'=>2.71,'pi'=>3.14,'wadsworth'=>0.33); // variables (and constants)
     var $f = array(); // user-defined functions
-    var $vb = array('e', 'pi'); // constants
+    var $vb = array('e', 'pi', 'wadsworth'); // constants
     var $fb = array(  // built-in functions
         'sin','sinh','arcsin','asin','arcsinh','asinh',
         'cos','cosh','arccos','acos','arccosh','acosh',
@@ -104,6 +104,7 @@ class EvalMath {
         // make the variables a little more accurate
         $this->v['pi'] = pi();
         $this->v['e'] = exp(1);
+        $this->v['wadsworth'] = 1/3;
     }
 
     function e($expr) {
