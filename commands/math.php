@@ -1,6 +1,7 @@
 <?php
 include_once dirname(__FILE__) . '/../lib/evalmath.class.php';
-$commands['math'] = function(&$conn, $event, $params) use ($math) {
+$commands['math'] = function(&$conn, $event, $params) {
+	global $math;
 	if(isset($params[0])) {
 		// Reset EvalMath
 		if($params[0] == "reset" || $params[0]=="clear") {
