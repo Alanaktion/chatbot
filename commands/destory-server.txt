@@ -1,2 +1,0 @@
-Usage: #rebuild [url]
-Destory an server using the RM Command.
