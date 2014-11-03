@@ -111,4 +111,23 @@
 <template>Y</template>
 </category>
 
+<category>
+<pattern>WHAT SOUND DOES A SIREN MAKE</pattern>
+<template>Wii U Wii U Wii U</template>
+</category>
+
+<category>
+<pattern>WHERE ARE YOU HASHY</pattern>
+<template>Why can't I find you?</template>
+</category>
+
+<category>
+<pattern>WHY HAVE YOU GONE AWAY</pattern>
+<template>Where is the laughter?</template>
+</category>
+
+<category>
+<pattern>YOU USED TO BRING ME</pattern>
+<template>Why can't I hear music play?</template>
+</category>
 </aiml>
