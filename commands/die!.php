@@ -2,7 +2,7 @@
 $commands['die!'] = function(&$conn, $pl, $params) {
 	// Don't allow a group message to kill the bot
 	if($pl['type'] == "chat") {
-		if(strpos($pl['from'],"bpratt") !== false) {
+		if(strpos($pl['from'],"ahardman") !== false) {
 			$conn->message($pl['from'], "/me dies", $pl['type']);
 			$conn->disconnect();
 		} else {
