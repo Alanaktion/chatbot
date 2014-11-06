@@ -203,12 +203,16 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$to = htmlspecialchars($to);
 
 		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
-		if($plaintext_body) {
-			$out .= "<body>" . htmlspecialchars($plaintext_body) . "</body>";
+		if(!is_callable("XMLReader::xml") || XMLReader::xml($body)) {
+			if($plaintext_body) {
+				$out .= "<body>" . htmlspecialchars($plaintext_body) . "</body>";
+			} else {
+				$out .= "<body>" . htmlspecialchars(strip_tags($body)) . "</body>";
+			}
+			$out .= "<html xmlns=\"http://jabber.org/protocol/xhtml-im\"><body xmlns=\"http://www.w3.org/1999/xhtml\">" . $body . "</body></html>";
 		} else {
-			$out .= "<body>" . htmlspecialchars(strip_tags($body)) . "</body>";
+			$out .= "Error: Command sent invalid XML as HTML.";
 		}
-		$out .= "<html xmlns=\"http://jabber.org/protocol/xhtml-im\"><body xmlns=\"http://www.w3.org/1999/xhtml\">" . $body . "</body></html>";
 		$out .= "</message>";
 
 		$this->send($out);
@@ -243,13 +247,36 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$this->send($out);
 	}
 
+	/**
+	 * Join a MUC chat
+	 *
+	 * @param string $room
+	 * @param string $host
+	 * @param string $nick
+	 * @param string $password
+	 */
 	public function joinRoom($room, $host, $nick, $password = null) {
-		$out = "<presence to='" . $room . "@" . $host . "/" . $nick . "'><priority>1</priority>";
+		$out = "<presence from='{$this->fulljid}' to='{$room}@{$host}/{$nick}'><priority>1</priority>";
 		$out .= "<x xmlns='http://jabber.org/protocol/muc'><history maxchars='0'/>";
 		if($password) {
 			$out .= "<password>{$password}</password>";
 		}
 		$out .= "</x></presence>";
+		$this->send($out);
+	}
+
+	/**
+	 * Leave a MUC chat
+	 *
+	 * @param string $room
+	 * @param string $host
+	 */
+	public function leaveRoom($room, $host, $nick, $status = null) {
+		$out = "<presence from='{$this->fulljid}' to='{$room}@{$host}/{$nick}' type='unavailable'><priority>1</priority>";
+		if($status) {
+			$out .= "<status>" . htmlspecialchars($status) . "</status>";
+		}
+		$out .= "</presence>";
 		$this->send($out);
 	}
 
@@ -260,7 +287,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 */
 	public function subscribe($jid) {
 		$this->send("<presence type='subscribe' to='{$jid}' from='{$this->fulljid}' />");
-		#$this->send("<presence type='subscribed' to='{$jid}' from='{$this->fulljid}' />");
+		// $this->send("<presence type='subscribed' to='{$jid}' from='{$this->fulljid}' />");
 	}
 
 	/**
