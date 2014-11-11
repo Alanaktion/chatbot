@@ -1,0 +1,2 @@
+Usage: #rand [max] OR #rand [min] [max]
+Generates a random number between 1 and max, min and max, or 0 and getrandmax()

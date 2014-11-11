@@ -10,7 +10,7 @@ $commands['rand'] = function(&$conn, $event, $params) {
 	if(isset($val)) {
 		$conn->message($event['from'], $val, $event['type']);
 	} else {
-		$conn->message($event['from'], "Usage: #rand [max | min, max]", $event['type']);
+		$conn->message($event['from'], "Usage: #rand [max] OR #rand [min] [max]", $event['type']);
 	}
 }
 ?>
