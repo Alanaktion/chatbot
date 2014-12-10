@@ -4,16 +4,17 @@ $commands['domain'] = function(&$conn, $event, $params) {
 		//$response = curl_get_contents("http://alanaktion.net/tools/domains_api.php?domain=" . urlencode(implode(',',$params)));
 		//$conn->message($event['from'], trim($response), $event['type']);
 		$response = Unirest::get("http://domai.nr/api/json/info?q=" . urlencode($params[0]));
+		print_r($response->body);
 		if(!empty($response->body->error_message)) {
-			$str = "Error: " . $response->body->error_message;
+			$str = "Error: " . htmlentities($response->body->error_message);
 		} else {
-			$str = $response->body->domain . ": <a href='{$response->body->register_url}'>" . $response->body->availability . "</a>";
+			$str = htmlentities($response->body->domain) . ": <a href='" . htmlentities($response->body->register_url) ."'>" . htmlentities($response->body->availability) . "</a>";
 			/*if($response->body->availability == "available") {
-				$html = "<span style='color: green;' title='{$response->body->availability}'>&#9642;</span> {$response->body->domain} <a href='{$response->body->register_url}'>Register</a>";
+				$str = "<span style='color: green;' title='{$response->body->availability}'>&#9642;</span> {$response->body->domain} <a href='" . htmlentities($response->body->register_url) ."'>Register</a>";
 			} elseif($response->body->availability == "maybe") {
-				$html = "<span style='color: darkyellow;' title='{$response->body->availability}'>&#9642;</span> {$response->body->domain} <a href='{$response->body->register_url}'>Check</a>";
+				$str = "<span style='color: darkyellow;' title='{$response->body->availability}'>&#9642;</span> {$response->body->domain} <a href='" . htmlentities($response->body->register_url) ."'>Check</a>";
 			} else {
-				$html = "<span style='color: red;' title='{$response->body->availability}'>&#9642;</span> {$response->body->domain}";
+				$str = "<span style='color: red;' title='{$response->body->availability}'>&#9642;</span> {$response->body->domain}";
 			}*/
 		}
 		$conn->htmlmessage($event['from'], $str, $event['type']);
