@@ -20,10 +20,11 @@ $commands['ping_native'] = function(&$conn, $event, $params) {
 		}
 
 		// Run command
-		$conn->message($event['from'], "Pinging {$params[0]}...", $event['type']);
-		$result = shell_exec("ping -" . ($win ? "n" : "c") . " {$count} {$host}");
-
-		$conn->message($event['from'], $result, $event['type']);
+		$ph = popen("ping -" . ($win ? "n" : "c") . " {$count} {$host}", "r");
+		while (! feof($ph)) {
+			$conn->message($event['from'], trim(fgets($ph, 1024)), $event['type']);
+		}
+		pclose($ph);
 	} else {
 		$conn->message($event['from'], "Usage: #ping_native <server> [count]", $event['type']);
 	}
