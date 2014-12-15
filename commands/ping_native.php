@@ -16,13 +16,16 @@ $commands['ping_native'] = function(&$conn, $event, $params) {
 		if(!empty($params[1])) {
 			$count = intval($params[1]);
 		} else {
-			$count = 5;
+			$count = 1;
 		}
 
 		// Run command
 		$ph = popen("ping -" . ($win ? "n" : "c") . " {$count} {$host}", "r");
 		while (! feof($ph)) {
-			$conn->message($event['from'], trim(fgets($ph, 1024)), $event['type']);
+			$str = trim(fgets($ph, 1024));
+			if($str && !preg_match("/Ping statistics for|Approximate round trip times|ping statistics/", $str)) {
+				$conn->message($event['from'], $str, $event['type']);
+			}
 		}
 		pclose($ph);
 	} else {
