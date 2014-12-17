@@ -11,7 +11,7 @@ $commands['bootsncats'] = function(&$conn, $event, $params) {
 		for($i = 0; $i < $params[0]; $i++) {
 			$arr[] = $str;
 		}
-		$conn->message($event['from'], implode($cat, $arr), $event['type']);
+		$conn->message($event['from'], ucfirst(implode($cat, $arr)) . ".", $event['type']);
 	}
 }
 ?>
