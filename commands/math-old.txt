@@ -1,0 +1,2 @@
+Usage: #math-old <expression|clear|reset>
+Evaluates a mathematic expression.

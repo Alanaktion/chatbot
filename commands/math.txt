@@ -1,2 +1,2 @@
-Usage: #math <expression|clear|reset>
-Evaluates a mathematic expression.
+Usage: #math <expression>
+Evaluate a mathematical expression, solve an equation, or convert units and currencies
