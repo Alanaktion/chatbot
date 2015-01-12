@@ -130,4 +130,9 @@
 <pattern>YOU USED TO BRING ME</pattern>
 <template>Why can't I hear music play?</template>
 </category>
+
+<category>
+<pattern>WHO IS YOUR FAVORITE BAND</pattern>
+<template>My favorite band is <bot name="favoriteband"/>.</template>
+</category>
 </aiml>
