@@ -1,2 +1,2 @@
-Usage: #ipsum [lorem|hipster]
+Usage: #ipsum [lorem|hipster|corporate]
 Outputs a paragraph of Lorem Ipsum or the passed variation.
