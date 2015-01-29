@@ -147,7 +147,7 @@ $commands['em'] = function(&$conn, $pl, $params) {
 	);
 
 	if (!empty($params[0])) {
-		$text = implode(" ",$params);
+		$text = strtoupper(implode(" ", $params));
 		$textlength = strlen($text);
 		$i = 0;
 		while($i <= $textlength) {
