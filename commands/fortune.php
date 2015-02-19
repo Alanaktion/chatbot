@@ -5,7 +5,7 @@ $commands['fortune'] = function(&$conn, $event, $params) {
 	} else {
 		$url = "raw";
 	}
-	$response = curl_get_contents("http://alanaktion.net/fun/fortune.php?" . $url);
+	$response = curl_get_contents("http://phpizza.com/~alan/fortune.php?" . $url);
 	$conn->message($event['from'], trim($response), $event['type']);
 }
 ?>
