@@ -203,7 +203,8 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$to = htmlspecialchars($to);
 
 		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
-		if(!is_callable("XMLReader::xml") || XMLReader::xml($body)) {
+		$xml = new XMLReader();
+		if($xml->xml($body)) {
 			if($plaintext_body) {
 				$out .= "<body>" . htmlspecialchars($plaintext_body) . "</body>";
 			} else {
