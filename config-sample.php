@@ -92,3 +92,10 @@ $enable_mentions = false;
 
 // The Movie Database
 $tmdb_key = "";
+
+// MX Toolbox API
+$mxtoolbox_key = "";
+$mxtoolbox_enable_pro = false;
+
+// YouTube API
+$youtube_key = "";
